@@ -4,8 +4,6 @@ export const post = async ({ request }) => {
   // format donnée en objet
   const body = await request.json();
 
-  console.log(body);
-
   // signin
   const { user, error } = await supabase.auth.signIn({
     email: body.email,
