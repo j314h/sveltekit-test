@@ -1,6 +1,26 @@
 <script lang="ts">
-  const handlerConnexion = async () => {
-    console.log('coucou');
+  import { goto } from '$app/navigation';
+  import { session } from '$app/stores';
+
+  import { createObjectAsFormData } from 'woo-format';
+
+  // envoie formulaire connexion user
+  const handlerConnexion = async (e) => {
+    // format formData
+    const formData = createObjectAsFormData(e.target);
+
+    // signin
+    const res = await fetch('api/auth.json', { method: 'POST', body: JSON.stringify(formData) });
+    const user = await res.json();
+
+    // redirection si tout est ok + creation session
+    if (res.ok) {
+      $session.user = { ...user };
+      goto('/todo');
+    }
+
+    // effacement du formulaire
+    e.target.reset();
   };
 </script>
 
