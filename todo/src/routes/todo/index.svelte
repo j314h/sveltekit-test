@@ -1,12 +1,13 @@
 <script context="module" lang="ts">
   export const load = async ({ session }) => {
-    console.log('SESSION : ', session);
+    if (!session.user) {
+      return {
+        status: 302,
+        redirect: '/'
+      };
+    }
 
-    return {
-      props: {
-        test: ''
-      }
-    };
+    return {};
   };
 </script>
 
