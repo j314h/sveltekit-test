@@ -56,7 +56,7 @@
         <div class="form-control mt-2">
           <label for="label">
             <span class="label-text"
-              >Mot de passe <span class="text-2xs">(6 caratères minimum)</span> *</span
+              >Mot de passe * <span class="text-2xs">(6 caratères minimum)</span></span
             >
           </label>
           <input

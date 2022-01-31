@@ -10,6 +10,8 @@ export const post = async ({ request }) => {
     password: body.password
   });
 
+  console.log(user);
+
   // si error connexion
   if (error) {
     return {

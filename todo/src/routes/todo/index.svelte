@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   import Todo from '$lib/modules/todo/Todo.component.svelte';
   import { todoStore } from '$lib/modules/todo/todo.store';
+  import type { ITodo } from '$lib/modules/todo/todo.type';
 
   export const load = async ({ session, fetch }) => {
     if (!session.user) {
@@ -10,14 +11,14 @@
       };
     }
 
-    const res = await fetch('api/todo.json');
+    const res = await fetch('api/todo.json', { method: 'GET' });
 
     if (res.ok) {
       const todos = await res.json();
 
       return {
         props: {
-          todos
+          todos: todos.todos
         }
       };
     } else {
@@ -30,10 +31,16 @@
 </script>
 
 <script lang="ts">
-  export let todos;
+  import TodoCreate from '$lib/modules/todo/Todo-create.component.svelte';
+
+  export let todos: ITodo[];
+  todoStore.set({ todos: todos });
 </script>
 
-<h2 class="mb-8">MES TODOS</h2>
+<h2 class="mb-8">Ma liste de chose à faire</h2>
+
+<!-- creation des todos -->
+<TodoCreate />
 
 <!-- list todo -->
 {#if $todoStore.todos.length > 0}
