@@ -1,6 +1,12 @@
 <script context="module" lang="ts">
   export const load = async ({ session }) => {
     console.log(session);
+
+    return {
+      props: {
+        test: ''
+      }
+    };
   };
 </script>
 
