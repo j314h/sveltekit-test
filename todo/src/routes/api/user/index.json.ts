@@ -34,9 +34,9 @@ export const post = async({request}) => {
       // si error profil
       if(profil.error){
           return {
-            status: error.status,
+            status: profil.error.code,
             body: {
-                error: error.message
+                error: profil.error.message
             }
           }
       }

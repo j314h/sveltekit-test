@@ -87,12 +87,12 @@
           <input type="text" placeholder="Prénom" class="input input-bordered" name="first_name" />
         </div>
 
-        <!-- adresse -->
+        <!-- adress -->
         <div class="form-control mt-2">
           <label for="label">
             <span class="label-text">Adresse</span>
           </label>
-          <input type="text" placeholder="Adresse" class="input input-bordered" name="adresse" />
+          <input type="text" placeholder="Adresse" class="input input-bordered" name="adress" />
         </div>
 
         <!-- code postale -->
