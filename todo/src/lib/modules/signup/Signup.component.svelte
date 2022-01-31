@@ -9,7 +9,7 @@
     // request create
     const res = fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
 
-    console.log(res);
+    console.log('RES : ', res);
   };
 </script>
 

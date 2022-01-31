@@ -22,6 +22,11 @@ export const post = async({request}) => {
         }
       )
 
+      console.log('USER : ', user);
+      console.log('SESSION : ', session);
+      console.log('ERROR : ', error);
+      
+
       // si error
       if(error){
           return {
