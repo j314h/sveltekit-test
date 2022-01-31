@@ -8,7 +8,7 @@ const config = {
 			  },
 		}
 	},
-	plugins: ['daisyui']
+	plugins: [require('daisyui')]
 };
 
 module.exports = config;
