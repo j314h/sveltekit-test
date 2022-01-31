@@ -1,9 +1,12 @@
 <script lang="ts">
   import { createObjectAsFormData } from 'woo-format';
 
+  // envoie fomulaire de creation user
   const handlerCreateUser = async (e) => {
+    // formate formdata
     const data = createObjectAsFormData(e.target);
 
+    // request create
     const res = fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
 
     console.log(res);
