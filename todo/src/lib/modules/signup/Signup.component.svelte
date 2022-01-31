@@ -7,7 +7,7 @@
     const data = createObjectAsFormData(e.target);
 
     // request create
-    const res = fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
+    const res = await fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
 
     console.log('RES : ', res);
   };
@@ -68,7 +68,7 @@
           <span class="label-text">Email</span>
         </label>
         <input
-          type="text"
+          type="email"
           required={false}
           placeholder="Email"
           class="input input-bordered"
@@ -82,7 +82,7 @@
           <span class="label-text">Mot de passe</span>
         </label>
         <input
-          type="text"
+          type="password"
           required={false}
           placeholder="Mot de passe"
           class="input input-bordered"
