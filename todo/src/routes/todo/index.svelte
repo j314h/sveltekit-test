@@ -1,4 +1,6 @@
 <script context="module" lang="ts">
+  import Todo from '$lib/modules/todo/Todo.component.svelte';
+
   export const load = async ({ session }) => {
     if (!session.user) {
       return {
@@ -11,4 +13,6 @@
   };
 </script>
 
-<p>VOICI MES TODOS</p>
+<h2 class="mb-8">MES TODOS</h2>
+
+<Todo />
