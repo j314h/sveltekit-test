@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import Todo from '$lib/modules/todo/Todo.component.svelte';
+  import { todoStore } from '$lib/modules/todo/todo.store';
 
   export const load = async ({ session, fetch }) => {
     if (!session.user) {
@@ -34,4 +35,11 @@
 
 <h2 class="mb-8">MES TODOS</h2>
 
-<Todo />
+<!-- list todo -->
+{#if $todoStore.todos.length > 0}
+  {#each $todoStore.todos as todo}
+    <Todo {todo} />
+  {/each}
+{:else}
+  <p class="font-bold text-3xl text-center">Aucune tâche</p>
+{/if}
