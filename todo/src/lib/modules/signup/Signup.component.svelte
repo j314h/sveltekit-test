@@ -1,7 +1,17 @@
-<div class="card card-bordered">
+<script lang="ts">
+  const handlerCreateUser = async () => {
+    console.log('coucou');
+  };
+</script>
+
+<section class="card card-bordered">
   <div class="card-body">
+    <!-- title -->
     <h2 class="mb-8 card-title text-center">Inscription</h2>
-    <form action="">
+
+    <!-- formulaire creation user -->
+    <form on:submit|preventDefault={handlerCreateUser}>
+      <!-- nom -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Nom</span>
@@ -14,6 +24,8 @@
           name="last_name"
         />
       </div>
+
+      <!-- prenom -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Prénom</span>
@@ -26,6 +38,8 @@
           name="first_name"
         />
       </div>
+
+      <!-- Pseudo -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Pseudo</span>
@@ -38,6 +52,8 @@
           name="pseudo"
         />
       </div>
+
+      <!-- Email -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Email</span>
@@ -50,6 +66,8 @@
           name="email"
         />
       </div>
+
+      <!-- mot de passe -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Mot de passe</span>
@@ -62,6 +80,8 @@
           name="password"
         />
       </div>
+
+      <!-- adresse -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Adresse</span>
@@ -74,6 +94,8 @@
           name="adresse"
         />
       </div>
+
+      <!-- code postale -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Code postale</span>
@@ -86,6 +108,8 @@
           name="code_post"
         />
       </div>
+
+      <!-- ville -->
       <div class="form-control mt-2">
         <label for="label">
           <span class="label-text">Ville</span>
@@ -99,9 +123,10 @@
         />
       </div>
 
+      <!-- btn envoie formulaire -->
       <div class="text-right">
         <button class="btn btn-primary mt-8">Créer mon compte</button>
       </div>
     </form>
   </div>
-</div>
+</section>
