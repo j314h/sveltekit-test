@@ -1,11 +1,10 @@
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
-
+	mode: "jit",
+	content: ['./src/**/*.{html,js,svelte,ts,css}'],
 	theme: {
 		extend: {}
 	},
-
-	plugins: []
+	plugins: ['daisyui']
 };
 
 module.exports = config;
