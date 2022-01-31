@@ -34,6 +34,7 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/supabase-js": "^1.29.4",
-		"daisyui": "^1.25.4"
+		"daisyui": "^1.25.4",
+		"woo-format": "^0.0.1"
 	}
 }
