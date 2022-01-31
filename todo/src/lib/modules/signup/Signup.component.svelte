@@ -8,7 +8,8 @@
 
     // request create
     const res = await fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
-
+    const user = await res.json();
+    console.log('USER FRONT : ', user);
     console.log('RES : ', res);
   };
 </script>
@@ -19,123 +20,99 @@
     <h2 class="mb-8 card-title text-center">Inscription</h2>
 
     <!-- formulaire creation user -->
-    <form on:submit|preventDefault={handlerCreateUser}>
-      <!-- nom -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Nom</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="Nom"
-          class="input input-bordered"
-          name="last_name"
-        />
-      </div>
+    <form class="md:flex md:justify-between" on:submit|preventDefault={handlerCreateUser}>
+      <section class="md:mr-12">
+        <!-- Pseudo -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Pseudo *</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Pseudo"
+            class="input input-bordered"
+            name="pseudo"
+            required
+          />
+        </div>
 
-      <!-- prenom -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Prénom</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="Prénom"
-          class="input input-bordered"
-          name="first_name"
-        />
-      </div>
+        <!-- Email -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Email *</span>
+          </label>
+          <input
+            type="email"
+            placeholder="Email"
+            class="input input-bordered"
+            name="email"
+            required
+          />
+        </div>
 
-      <!-- Pseudo -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Pseudo</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="Pseudo"
-          class="input input-bordered"
-          name="pseudo"
-        />
-      </div>
+        <!-- mot de passe -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text"
+              >Mot de passe <span class="text-2xs">(6 caratères minimum)</span> *</span
+            >
+          </label>
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            class="input input-bordered"
+            name="password"
+            required
+          />
+        </div>
+      </section>
 
-      <!-- Email -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Email</span>
-        </label>
-        <input
-          type="email"
-          required={false}
-          placeholder="Email"
-          class="input input-bordered"
-          name="email"
-        />
-      </div>
+      <!-- non required -->
+      <section>
+        <!-- nom -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Nom</span>
+          </label>
+          <input type="text" placeholder="Nom" class="input input-bordered" name="last_name" />
+        </div>
 
-      <!-- mot de passe -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Mot de passe</span>
-        </label>
-        <input
-          type="password"
-          required={false}
-          placeholder="Mot de passe"
-          class="input input-bordered"
-          name="password"
-        />
-      </div>
+        <!-- prenom -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Prénom</span>
+          </label>
+          <input type="text" placeholder="Prénom" class="input input-bordered" name="first_name" />
+        </div>
 
-      <!-- adresse -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Adresse</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="Adresse"
-          class="input input-bordered"
-          name="adresse"
-        />
-      </div>
+        <!-- adresse -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Adresse</span>
+          </label>
+          <input type="text" placeholder="Adresse" class="input input-bordered" name="adresse" />
+        </div>
 
-      <!-- code postale -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Code postale</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="62119"
-          class="input input-bordered"
-          name="code_post"
-        />
-      </div>
+        <!-- code postale -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Code postale</span>
+          </label>
+          <input type="text" placeholder="62119" class="input input-bordered" name="code_post" />
+        </div>
 
-      <!-- ville -->
-      <div class="form-control mt-2">
-        <label for="label">
-          <span class="label-text">Ville</span>
-        </label>
-        <input
-          type="text"
-          required={true}
-          placeholder="Dourges"
-          class="input input-bordered"
-          name="city"
-        />
-      </div>
-
-      <!-- btn envoie formulaire -->
-      <div class="text-right">
-        <button class="btn btn-primary mt-8">Créer mon compte</button>
-      </div>
+        <!-- ville -->
+        <div class="form-control mt-2">
+          <label for="label">
+            <span class="label-text">Ville</span>
+          </label>
+          <input type="text" placeholder="Dourges" class="input input-bordered" name="city" />
+        </div>
+        <!-- btn envoie formulaire -->
+        <div class="text-right">
+          <button class="btn btn-primary mt-8">Créer mon compte</button>
+        </div>
+      </section>
     </form>
   </div>
 </section>

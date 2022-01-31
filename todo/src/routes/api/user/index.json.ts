@@ -5,6 +5,8 @@ export const post = async({request}) => {
     // on recupere sous forme de json
     const body = await request.json();
 
+    console.log(body);
+    
     // on stocke le mot de passe
     const password = body.password
 
@@ -25,9 +27,21 @@ export const post = async({request}) => {
       console.log('USER : ', user);
       console.log('SESSION : ', session);
       console.log('ERROR : ', error);
-      
 
-      // si error
+      // creation du profil
+      const profil = await supabase.from('profils').insert([body])
+
+      // si error profil
+      if(profil.error){
+          return {
+            status: error.status,
+            body: {
+                error: error.message
+            }
+          }
+      }
+      
+      // si error auth
       if(error){
           return {
               status: error.status,
