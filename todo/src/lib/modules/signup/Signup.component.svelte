@@ -11,6 +11,8 @@
     const user = await res.json();
     console.log('USER FRONT : ', user);
     console.log('RES : ', res);
+
+    e.target.reset();
   };
 </script>
 

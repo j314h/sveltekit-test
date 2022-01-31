@@ -29,7 +29,7 @@ export const post = async({request}) => {
       console.log('ERROR : ', error);
 
       // creation du profil
-      const profil = await supabase.from('profils').insert([body])
+      const profil = await supabase.from('profils').insert([{uid_user: user.id, ...body}])
 
       // si error profil
       if(profil.error){
