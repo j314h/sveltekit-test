@@ -32,7 +32,12 @@
     <form class="flex flex-col items-center mt-8" on:submit|preventDefault={handlerConnexion}>
       <!-- input email -->
       <div>
-        <input type="email" placeholder="E-Mail" class="input input-primary input-bordered" />
+        <input
+          type="email"
+          placeholder="E-Mail"
+          class="input input-primary input-bordered"
+          name="email"
+        />
       </div>
       <!-- input mot de passe -->
       <div class="mt-2 mb-12">
@@ -40,6 +45,7 @@
           type="password"
           placeholder="Mot de passe"
           class="input input-primary input-bordered"
+          name="password"
         />
         <!-- mot de passe oublié -->
         <div class="text-right">
