@@ -9,8 +9,8 @@
     // request create
     const res = await fetch('/api/user.json', { method: 'POST', body: JSON.stringify(data) });
     const user = await res.json();
-    console.log('USER FRONT : ', user);
-    console.log('RES : ', res);
+
+    // gestion erreur + throw error
 
     e.target.reset();
   };
