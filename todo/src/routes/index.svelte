@@ -3,7 +3,12 @@
   import Signup from '$lib/modules/signup/Signup.component.svelte';
 </script>
 
-<h1 class="font-bold text-3xl">La todo du futur</h1>
+<!-- head -->
+<svelte:head>
+  <title>Accueil | TODO</title>
+</svelte:head>
+
+<h1 class="font-bold text-4xl text-center">La todo du futur</h1>
 <!-- accueil -->
 <Signin />
 
