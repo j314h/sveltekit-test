@@ -28,6 +28,9 @@ export const post = async({request}) => {
       console.log('SESSION : ', session);
       console.log('ERROR : ', error);
 
+      // suppression de l'email
+      delete body.email
+
       // creation du profil
       const profil = await supabase.from('profils').insert([{uid_user: user.id, ...body}])
 
