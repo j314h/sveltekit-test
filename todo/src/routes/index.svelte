@@ -1,3 +1,16 @@
+<script context="module" lang="ts">
+  export const load = async ({ session }) => {
+    if (session.user) {
+      return {
+        status: 302,
+        redirect: '/todo'
+      };
+    }
+
+    return {};
+  };
+</script>
+
 <script lang="ts">
   import Signin from '$lib/modules/signin/Signin.component.svelte';
   import Signup from '$lib/modules/signup/Signup.component.svelte';
