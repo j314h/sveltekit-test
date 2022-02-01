@@ -13,7 +13,9 @@
     formData.uid_user = $session.user.id;
 
     // create todo
-    const { data, error } = await supabase.from('todos').insert([formData]);
+    const { data, error } = await supabase
+      .from('todos')
+      .insert([formData], { returning: 'minimal' });
 
     // si error
     if (error) {
