@@ -36,27 +36,18 @@
   import { get, readable } from 'svelte/store';
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { session } from '$app/stores';
+  import { onMount } from 'svelte';
 
   export let todos;
   todoStore.set({ todos: todos });
 
-  const todosRead = readable(todos, (set) => {
-    console.log('coucou');
-
-    supabase
-      .from('todos')
-      .select('*')
-      .then(({ error, data }) => set(data));
-    const subscription = supabase
+  onMount(() => {
+    const todos = supabase
       .from('todos')
       .on('*', (payload) => {
-        if (payload.eventType === 'INSERT') {
-          set([...todos, payload.new]);
-        }
+        console.log('Change received!', payload);
       })
       .subscribe();
-
-    return () => supabase.removeSubscription(subscription);
   });
 
   const deconnect = async () => {
@@ -76,7 +67,7 @@
 <TodoCreate />
 
 <!-- list todo -->
-{#if $todosRead}
+{#if $todoStore.todos}
   {#each $todoStore.todos as todo}
     <Todo {todo} />
   {/each}
