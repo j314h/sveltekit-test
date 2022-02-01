@@ -38,17 +38,23 @@
   import { session } from '$app/stores';
   import { onMount } from 'svelte';
 
-  export let todos;
-  todoStore.set({ todos: todos });
+  //export let todos: ITodo[];
+  //todoStore.set({ todos: todos });
 
-  onMount(() => {
-    const todos = supabase
-      .from('todos')
+  const testRead = () => {
+    return supabase
+      .from<ITodo[]>('todos')
       .on('*', (payload) => {
         console.log('Change received!', payload);
+        todoStore.update((n) => {
+          n.todos = [...n.todos, payload.new[0]];
+          return n;
+        });
       })
       .subscribe();
-  });
+  };
+
+  $: to = testRead();
 
   const deconnect = async () => {
     const res = await fetch('api/logout.json');
