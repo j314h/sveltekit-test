@@ -3,7 +3,7 @@
   import { todoStore } from '$lib/modules/todo/todo.store';
   import type { ITodo } from '$lib/modules/todo/todo.type';
 
-  export const load = async ({ session, fetch }) => {
+  export const load = async ({ fetch, session }) => {
     if (!session.user) {
       return {
         status: 302,
@@ -11,8 +11,8 @@
       };
     }
 
+    // appelle todo
     const res = await fetch('api/todo.json', { method: 'GET' });
-
     if (res.ok) {
       const todos = await res.json();
 
@@ -32,10 +32,21 @@
 
 <script lang="ts">
   import TodoCreate from '$lib/modules/todo/Todo-create.component.svelte';
+  import { session } from '$app/stores';
 
   export let todos: ITodo[];
   todoStore.set({ todos: todos });
+
+  const deconnect = async () => {
+    const res = await fetch('api/logout.json');
+
+    if (res.ok) {
+      $session.user = null;
+    }
+  };
 </script>
+
+<button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
 <h2 class="mb-8">Ma liste de chose à faire</h2>
 

@@ -3,7 +3,6 @@ import { supabase } from '$lib/providers/supabase/supabase.service';
 export const get = async () => {
   // get les todo du user connecter
   const { data: todos, error } = await supabase.from('todos').select('*');
-  console.log(todos);
 
   // si error
   if (error) {
