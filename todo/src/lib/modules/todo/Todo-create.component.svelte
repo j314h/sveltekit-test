@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { session } from '$app/stores';
+
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { createObjectAsFormData } from 'woo-format';
   import { todoStore } from './todo.store';
@@ -8,8 +10,7 @@
     // fomat données
     const formData = createObjectAsFormData<ITodo>(e.target);
     formData.check = false;
-    const user = supabase.auth.user();
-    formData.uid_user = user.id;
+    formData.uid_user = $session.user.id;
 
     // create todo
     const { data, error } = await supabase
@@ -23,7 +24,7 @@
 
     // update store
     todoStore.update((n) => {
-      n.todos = [...n.todos, data[0]];
+      n.todos = [...n.todos, formData[0]];
       return n;
     });
 

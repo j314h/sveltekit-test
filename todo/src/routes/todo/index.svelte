@@ -2,7 +2,6 @@
   import Todo from '$lib/modules/todo/Todo.component.svelte';
   import { todoStore } from '$lib/modules/todo/todo.store';
   import type { ITodo } from '$lib/modules/todo/todo.type';
-  import { session } from '$app/stores';
 
   export const load = async ({ fetch, session }) => {
     if (!session.user) {
@@ -49,7 +48,7 @@
       .select('*')
       .then(({ error, data }) => set(data));
     const subscription = supabase
-      .from('totos')
+      .from('todos')
       .on('*', (payload) => {
         if (payload.eventType === 'INSERT') {
           set([...todos, payload.new]);
