@@ -1,17 +1,28 @@
 <script lang="ts">
+  import { supabase } from '$lib/providers/supabase/supabase.service';
+
   import type { ITodo } from './todo.type';
 
   // todo reçus
   export let todo: ITodo;
+
+  const deleteTodo = async (id: string): Promise<void> => {
+    const { data, error } = await supabase.from('todos').delete().eq('id', id);
+  };
 </script>
 
 {#if todo}
   <section class="shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12">
     <label class="cursor-pointer label">
-      <input type="checkbox" checked={todo.check} class="checkbox mr-2" />
+      <input type="checkbox" checked={todo.check} class="checkbox mr-6" />
       <span class="label-text">{todo.text}</span>
 
-      <button class="text-red-500 ml-4">
+      <button
+        class="text-red-500 ml-4"
+        on:click={async () => {
+          await deleteTodo(todo.id);
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"

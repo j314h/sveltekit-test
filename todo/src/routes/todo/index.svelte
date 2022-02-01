@@ -32,29 +32,11 @@
 
 <script lang="ts">
   import TodoCreate from '$lib/modules/todo/Todo-create.component.svelte';
-
-  import { get, readable } from 'svelte/store';
-  import { supabase } from '$lib/providers/supabase/supabase.service';
   import { session } from '$app/stores';
   import { onMount } from 'svelte';
 
-  //export let todos: ITodo[];
-  //todoStore.set({ todos: todos });
-
-  const testRead = () => {
-    return supabase
-      .from<ITodo[]>('todos')
-      .on('*', (payload) => {
-        console.log('Change received!', payload);
-        todoStore.update((n) => {
-          n.todos = [...n.todos, payload.new[0]];
-          return n;
-        });
-      })
-      .subscribe();
-  };
-
-  $: to = testRead();
+  export let todos: ITodo[];
+  todoStore.set(todos);
 
   const deconnect = async () => {
     const res = await fetch('api/logout.json');
@@ -63,20 +45,26 @@
       $session.user = null;
     }
   };
+
+  onMount(() => {
+    todoStore.listen();
+  });
 </script>
 
 <button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
-<h2 class="mb-8">Ma liste de chose à faire</h2>
+<h2 class="mb-8">Ma liste à faire</h2>
 
 <!-- creation des todos -->
 <TodoCreate />
 
 <!-- list todo -->
-{#if $todoStore.todos}
-  {#each $todoStore.todos as todo}
+{#if $todoStore.length > 0}
+  {#each $todoStore as todo}
     <Todo {todo} />
   {/each}
 {:else}
-  <p class="font-bold text-3xl text-center">Aucune tâche</p>
+  <p class="font-bold text-3xl text-center">
+    Hé {$session.user ? $session.user.user_metadata.pseudo : null}, vous pouvez vous reposer !
+  </p>
 {/if}

@@ -1,9 +1,7 @@
 <script lang="ts">
   import { session } from '$app/stores';
-
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { createObjectAsFormData } from 'woo-format';
-  import { todoStore } from './todo.store';
   import type { ITodo } from './todo.type';
 
   const handlerCreateTodo = async (e) => {
@@ -13,20 +11,12 @@
     formData.uid_user = $session.user.id;
 
     // create todo
-    const { data, error } = await supabase
-      .from('todos')
-      .insert([formData], { returning: 'minimal' });
+    const { error } = await supabase.from('todos').insert([formData]);
 
     // si error
     if (error) {
       throw new Error(error.message);
     }
-
-    // update store
-    todoStore.update((n) => {
-      n.todos = [...n.todos, formData[0]];
-      return n;
-    });
 
     e.target.reset();
   };
