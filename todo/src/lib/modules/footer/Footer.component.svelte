@@ -19,7 +19,7 @@
     </svg>
 
     <!-- copyright -->
-    <p>Copyright © 2021 - woopear</p>
+    <p class="ml-4">Copyright © {new Date().getFullYear()} - woopear</p>
   </div>
   <!-- cadre droit (lien) -->
   <div class="m-auto md:m-0 grid-flow-col gap-4 md:place-self-center md:justify-self-end">
