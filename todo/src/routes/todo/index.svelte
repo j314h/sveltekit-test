@@ -51,6 +51,11 @@
   });
 </script>
 
+<!-- head -->
+<svelte:head>
+  <title>Accueil | Ma liste</title>
+</svelte:head>
+
 <button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
 <h2 class="mb-8">Ma liste à faire</h2>

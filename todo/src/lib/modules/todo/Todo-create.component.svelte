@@ -1,6 +1,5 @@
 <script lang="ts">
   import { session } from '$app/stores';
-  import { supabase } from '$lib/providers/supabase/supabase.service';
   import { createObjectAsFormData } from 'woo-format';
   import type { ITodo } from './todo.type';
 
@@ -11,14 +10,14 @@
     formData.uid_user = $session.user.id;
 
     // create todo
-    const { error } = await supabase.from('todos').insert([formData]);
+    const res = await fetch('api/todo.json', { method: 'POST', body: JSON.stringify(formData) });
+    const resJson = await res.json();
 
-    // si error
-    if (error) {
-      throw new Error(error.message);
+    if (!resJson.created) {
+      throw new Error(resJson.error.message);
+    } else {
+      e.target.reset();
     }
-
-    e.target.reset();
   };
 </script>
 

@@ -18,7 +18,7 @@
 
 <!-- head -->
 <svelte:head>
-  <title>Accueil | TODO</title>
+  <title>Accueil | LTDF</title>
 </svelte:head>
 
 <h1 class="font-bold text-4xl text-center">La todo du futur</h1>
