@@ -1,6 +1,5 @@
 <script lang="ts">
   import { createObjectAsFormData } from 'woo-format';
-  import Error from '../error/Error.component.svelte';
 
   import type { ITodo } from './todo.type';
 
@@ -28,7 +27,7 @@
   };
 
   // fonction update
-  const validateUpdate = async (e, id): Promise<void> => {
+  const validateUpdate = async (e, id: string): Promise<void> => {
     // creation formData
     const formData = createObjectAsFormData<ITodo>(e.target);
 
@@ -38,8 +37,8 @@
     });
     const resJson = await res.json();
 
-    if (!resJson.update) {
-      throw new Error(resJson.error);
+    if (!resJson?.update) {
+      throw new Error(resJson?.update);
     }
   };
 </script>
@@ -98,7 +97,7 @@
       }}
     >
       <!-- input du text -->
-      <input type="text" name="text" value={todo.text} />
+      <input type="text" name="text" bind:value={todo.text} />
 
       <!-- boutton de validation du formulaire -->
       <button class="text-green-500 ml-4">
