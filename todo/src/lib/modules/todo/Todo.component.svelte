@@ -63,23 +63,23 @@
   };
 </script>
 
+<!-- section read -->
 {#if todo && !btnUpdate}
-  <!-- section read -->
-  <section class="mb-12 w-full">
+  <section class="w-full">
     <label class="cursor-pointer label">
       <!-- input checkbox -->
       <input
         type="checkbox"
         checked={todo.check}
-        class="checkbox mr-6"
+        class="checkbox mr-6 checkbox-secondary"
         on:change={async (e) => {
           await changeCheck(e, todo.id);
         }}
       />
-      <span class="label-text ml-4">{todo.text}</span>
+      <span class="label-text ml-2 md:ml-4 text-justify">{todo.text}</span>
       <div class="flex">
         <!-- btn change text -->
-        <button on:click={updateChange}>
+        <button on:click={updateChange} class="text-primary-focus ml-4 md:ml-12">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -118,7 +118,8 @@
     </label>
   </section>
 {:else if todo && btnUpdate}
-  <section class="mb-12 w-full">
+  <!-- section update -->
+  <section class="w-full">
     <div class="flex">
       <!-- formulaire de modification du la todo selectionner -->
       <form
@@ -129,7 +130,7 @@
       >
         <!-- input du text -->
         <input
-          class="input input-bordered input-sm rounded-full w-5/6 sm:w-7/12 md:w-6/12 lg:w-5/12"
+          class="input input-bordered input-sm rounded-full w-full "
           type="text"
           name="text"
           bind:value={todo.text}
