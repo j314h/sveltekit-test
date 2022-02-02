@@ -15,7 +15,7 @@
 </script>
 
 {#if todo}
-  <section class="shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12">
+  <section class="">
     <label class="cursor-pointer label">
       <input type="checkbox" checked={todo.check} class="checkbox mr-6" />
       <span class="label-text">{todo.text}</span>
