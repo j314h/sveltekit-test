@@ -65,7 +65,7 @@
 
 {#if todo && !btnUpdate}
   <!-- section read -->
-  <section>
+  <section class="mb-12 w-full">
     <label class="cursor-pointer label">
       <!-- input checkbox -->
       <input
@@ -79,17 +79,18 @@
       <span class="label-text ml-4">{todo.text}</span>
       <div class="flex">
         <!-- btn change text -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-          />
-        </svg>
-        <button on:click={updateChange} />
+        <button on:click={updateChange}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+            />
+          </svg>
+        </button>
 
         <!-- btn delete -->
         <button
@@ -117,48 +118,56 @@
     </label>
   </section>
 {:else if todo && btnUpdate}
-  <section>
-    <!-- formulaire de modification du la todo selectionner -->
-    <form
-      on:submit|preventDefault={async (e) => {
-        await validateUpdate(e, todo.id);
-      }}
-    >
-      <!-- input du text -->
-      <input type="text" name="text" bind:value={todo.text} />
+  <section class="mb-12 w-full">
+    <div class="flex">
+      <!-- formulaire de modification du la todo selectionner -->
+      <form
+        class="flex justify-between w-full"
+        on:submit|preventDefault={async (e) => {
+          await validateUpdate(e, todo.id);
+        }}
+      >
+        <!-- input du text -->
+        <input
+          class="input input-bordered input-sm rounded-full w-5/6 sm:w-7/12 md:w-6/12 lg:w-5/12"
+          type="text"
+          name="text"
+          bind:value={todo.text}
+        />
 
-      <!-- boutton de validation du formulaire -->
-      <button class="text-green-500 ml-4">
+        <!-- boutton de validation du formulaire -->
+        <button class="text-green-500 ml-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </button>
+      </form>
+      <!-- boutton pour revenir a la todo -->
+      <button class="text-red-500 ml-4 flex-row-reverse" on:click={updateChange}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 13l4 4L19 7"
+            fill-rule="evenodd"
+            d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
+            clip-rule="evenodd"
           />
         </svg>
       </button>
-    </form>
-    <!-- boutton pour revenir a la todo -->
-    <button class="text-red-500 ml-4" on:click={updateChange}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </button>
+    </div>
   </section>
 {/if}
