@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { createObjectAsFormData } from 'woo-format';
+
   import type { ITodo } from './todo.type';
 
   // todo reçus
   export let todo: ITodo;
-  export let btnUpdate = false;
+
+  export let btnUpdate: boolean = false;
 
   const deleteTodo = async (id: string): Promise<void> => {
     const res = await fetch(`api/todo/${id}-todo.json`, { method: 'DELETE' });
@@ -14,6 +17,7 @@
     }
   };
 
+  // changer
   const updateChange = () => {
     if (!btnUpdate) {
       btnUpdate = true;
@@ -22,13 +26,18 @@
     }
   };
 
-  const validateUpdate = async (id: string): Promise<void> => {
+  const validateUpdate = async (e): Promise<void> => {
+    // creation formData
+    const formData = createObjectAsFormData(e.target);
+
+    //
+
     // const { data, error } = await supabase.from('todos').
   };
 </script>
 
 {#if todo && !btnUpdate}
-  <section>
+  <section class="shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12">
     <label class="cursor-pointer label">
       <input type="checkbox" checked={todo.check} class="checkbox mr-6" />
       <span class="label-text">{todo.text}</span>
@@ -76,9 +85,13 @@
   <section
     class="flex-direction: row-reverse shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12"
   >
-    <section>
+    <!-- formulaire de modification du la todo selectionner -->
+    <form on:submit|preventDefault={validateUpdate(todo.id)}>
+      <!-- input du text -->
       <input type="text" value={todo.text} />
-      <button on:click={validateUpdate(todo.id)} class="text-green-500 ml-4">
+
+      <!-- boutton de validation du formulaire -->
+      <button class="text-green-500 ml-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -94,20 +107,21 @@
           />
         </svg>
       </button>
-      <button class="text-red-500 ml-4" on:click={updateChange}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </section>
+    </form>
+    <!-- boutton pour revenir a la todo -->
+    <button class="text-red-500 ml-4" on:click={updateChange}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
   </section>
 {/if}
