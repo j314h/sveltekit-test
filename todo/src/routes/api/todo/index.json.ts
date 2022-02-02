@@ -26,7 +26,11 @@ export const post = async ({ request }) => {
 
 export const get = async () => {
   // get les todo du user connecter
-  const { data: todos, error } = await supabase.from('todos').select('*');
+  const { data: todos, error } = await supabase
+    .from('todos')
+    .select('*')
+    .eq('uid_user', supabase.auth.user().id)
+    .order('created_at', { ascending: false });
 
   // si error
   if (error) {

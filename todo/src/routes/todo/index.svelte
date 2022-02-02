@@ -34,6 +34,7 @@
   import TodoCreate from '$lib/modules/todo/Todo-create.component.svelte';
   import { session } from '$app/stores';
   import { onMount } from 'svelte';
+  import { flip } from 'svelte/animate';
 
   export let todos: ITodo[];
   todoStore.set(todos);
@@ -47,7 +48,7 @@
   };
 
   onMount(() => {
-    todoStore.listen();
+    todoStore.listen($session.user.id);
   });
 </script>
 
@@ -58,15 +59,24 @@
 
 <button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
-<h2 class="mb-8">Ma liste à faire</h2>
+{#if $todoStore.length > 0}
+  <h2 class="mb-8 font-bold text-lg text-center">
+    {$session.user ? $session.user.user_metadata.pseudo : null}, il a encore des choses à faire
+  </h2>
+{/if}
 
 <!-- creation des todos -->
 <TodoCreate />
 
 <!-- list todo -->
 {#if $todoStore.length > 0}
-  {#each $todoStore as todo}
-    <Todo {todo} />
+  {#each $todoStore as todo, index (todo)}
+    <div
+      class="shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12"
+      animate:flip={{ duration: 500 }}
+    >
+      <Todo {todo} />
+    </div>
   {/each}
 {:else}
   <p class="font-bold text-3xl text-center">

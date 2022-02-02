@@ -14,7 +14,7 @@
     const resJson = await res.json();
 
     if (!resJson.created) {
-      throw new Error(resJson.error.message);
+      throw new Error(resJson.error);
     } else {
       e.target.reset();
     }

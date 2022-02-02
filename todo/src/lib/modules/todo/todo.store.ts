@@ -1,3 +1,4 @@
+import { session } from '$app/stores';
 import { supabase } from '$lib/providers/supabase/supabase.service';
 import { writable } from 'svelte/store';
 import type { ITodo } from './todo.type';
@@ -13,16 +14,17 @@ const storeTodos = () => {
       set(todos);
     },
 
-    listen: () => {
+    listen: (id: string) => {
       const sub = supabase
-        .from('todos')
+        .from(`todos:uid_user=eq.${id}`)
         .on('*', (payload) => {
           console.log('Change received!', payload);
+          console.log('Change received!', payload.eventType);
           if (payload.eventType === 'INSERT') {
             console.log('je insert');
 
             update((n) => {
-              n = [...n, payload.new];
+              n = [payload.new, ...n];
               return n;
             });
           } else if (payload.eventType === 'DELETE') {
