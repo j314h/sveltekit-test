@@ -21,11 +21,15 @@ export const del = async ({ params }) => {
   };
 };
 
+
 export const patch = async ({ params, request }) => {
+  // recupérer le body
   const body = await request.json();
 
+  // update todo
   const { error } = await supabase.from('todos').update(body).eq('id', params.id);
 
+  // si erreur
   if (error) {
     return {
       status: error.code,

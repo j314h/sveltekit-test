@@ -37,6 +37,7 @@
     });
     const resJson = await res.json();
 
+    // si erreur
     if (!resJson?.update) {
       throw new Error(resJson?.update);
     }
