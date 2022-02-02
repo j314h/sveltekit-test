@@ -5,9 +5,10 @@
 
   // todo reçus
   export let todo: ITodo;
-
+  // permet de switch entre le read et le update
   export let btnUpdate = false;
 
+  // delete todo
   const deleteTodo = async (id: string): Promise<void> => {
     const res = await fetch(`api/todo/${id}-todo.json`, { method: 'DELETE' });
     const resJson = await res.json();
@@ -31,6 +32,7 @@
     // creation formData
     const formData = createObjectAsFormData<ITodo>(e.target);
 
+    // update text
     const res = await fetch(`api/todo/${id}-todo.json`, {
       method: 'PATCH',
       body: JSON.stringify(formData)
@@ -42,14 +44,41 @@
       throw new Error(resJson?.update);
     }
   };
+
+  // update checked todo
+  const changeCheck = async (e, id: string) => {
+    console.log(e.target.checked);
+
+    // update checked
+    const res = await fetch(`api/todo/${id}-todo.json`, {
+      method: 'PATCH',
+      body: JSON.stringify({ check: e.target.checked })
+    });
+    const resJson = await res.json();
+
+    // si erreur
+    if (!resJson?.update) {
+      throw new Error(resJson?.update);
+    }
+  };
 </script>
 
 {#if todo && !btnUpdate}
+  <!-- section read -->
   <section>
     <label class="cursor-pointer label">
-      <input type="checkbox" checked={todo.check} class="checkbox mr-6" />
+      <!-- input checkbox -->
+      <input
+        type="checkbox"
+        checked={todo.check}
+        class="checkbox mr-6"
+        on:change={async (e) => {
+          await changeCheck(e, todo.id);
+        }}
+      />
       <span class="label-text">{todo.text}</span>
 
+      <!-- btn delete -->
       <button
         class="text-red-500 ml-4"
         on:click={async () => {
@@ -71,6 +100,8 @@
           />
         </svg>
       </button>
+
+      <!-- btn change text -->
       <button on:click={updateChange}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
