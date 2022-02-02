@@ -1,8 +1,7 @@
 import { supabase } from '$lib/providers/supabase/supabase.service';
 
 export const del = async ({ params }) => {
-  const { data, error } = await supabase.from('todos').delete().eq('id', params.id);
-  console.log(data);
+  const {  error } = await supabase.from('todos').delete().eq('id', params.id);
 
   if (error) {
     return {
@@ -21,3 +20,29 @@ export const del = async ({ params }) => {
     }
   };
 };
+
+export const patch = async ({params, request}) => {
+  const body = await request.json();
+
+  const { error } = await supabase
+  .from('todos')
+  .update(body)
+  .eq('id', params.id)
+
+  if(error) {
+    return {
+      status: error.code,
+      body: {
+        error: error.message,
+        update: false
+      }
+    };
+  }
+
+  return {
+    status: 200, 
+    body: {
+      update: false
+    }
+  };
+}

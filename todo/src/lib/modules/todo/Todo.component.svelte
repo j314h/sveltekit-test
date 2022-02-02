@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createObjectAsFormData } from 'woo-format';
+  import Error from '../error/Error.component.svelte';
 
   import type { ITodo } from './todo.type';
 
@@ -17,7 +18,7 @@
     }
   };
 
-  // changer
+  // changer de la variable boolean btnUpdate
   const updateChange = () => {
     if (!btnUpdate) {
       btnUpdate = true;
@@ -26,13 +27,20 @@
     }
   };
 
-  const validateUpdate = async (e): Promise<void> => {
+  // fonction update
+  const validateUpdate = async (e, id): Promise<void> => {
     // creation formData
-    const formData = createObjectAsFormData(e.target);
+    const formData = createObjectAsFormData<ITodo>(e.target);
 
-    //
+    const res = await fetch(`api/todo/${id}-todo.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData)
+    });
+    const resJson = await res.json();
 
-    // const { data, error } = await supabase.from('todos').
+    if (!resJson.update) {
+      throw new Error(resJson.error);
+    }
   };
 </script>
 
@@ -86,9 +94,13 @@
     class="flex-direction: row-reverse shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12"
   >
     <!-- formulaire de modification du la todo selectionner -->
-    <form on:submit|preventDefault={validateUpdate(todo.id)}>
+    <form
+      on:submit|preventDefault={(e) => {
+        validateUpdate(e, todo.id);
+      }}
+    >
       <!-- input du text -->
-      <input type="text" value={todo.text} />
+      <input type="text" name="text" value={todo.text} />
 
       <!-- boutton de validation du formulaire -->
       <button class="text-green-500 ml-4">
