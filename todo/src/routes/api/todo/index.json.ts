@@ -29,7 +29,8 @@ export const get = async () => {
   const { data: todos, error } = await supabase
     .from('todos')
     .select('*')
-    .eq('uid_user', supabase.auth.user().id);
+    .eq('uid_user', supabase.auth.user().id)
+    .order('created_at', { ascending: false });
 
   // si error
   if (error) {

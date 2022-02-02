@@ -24,7 +24,7 @@ const storeTodos = () => {
             console.log('je insert');
 
             update((n) => {
-              n = [...n, payload.new];
+              n = [payload.new, ...n];
               return n;
             });
           } else if (payload.eventType === 'DELETE') {
