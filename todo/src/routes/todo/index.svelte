@@ -47,7 +47,7 @@
   };
 
   onMount(() => {
-    todoStore.listen();
+    todoStore.listen($session.user.id);
   });
 </script>
 
@@ -58,7 +58,11 @@
 
 <button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
-<h2 class="mb-8">Ma liste à faire</h2>
+{#if $todoStore.length > 0}
+  <h2 class="mb-8 font-bold text-lg text-center">
+    {$session.user ? $session.user.user_metadata.pseudo : null}, il a encore des choses à faire
+  </h2>
+{/if}
 
 <!-- creation des todos -->
 <TodoCreate />

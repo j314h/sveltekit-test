@@ -1,13 +1,16 @@
 <script lang="ts">
-  import { supabase } from '$lib/providers/supabase/supabase.service';
-
   import type { ITodo } from './todo.type';
 
   // todo reçus
   export let todo: ITodo;
 
   const deleteTodo = async (id: string): Promise<void> => {
-    const { data, error } = await supabase.from('todos').delete().eq('id', id);
+    const res = await fetch(`api/todo/${id}-todo.json`, { method: 'DELETE' });
+    const resJson = await res.json();
+
+    if (!resJson.deleted) {
+      throw new Error(resJson.error);
+    }
   };
 </script>
 
