@@ -19,6 +19,7 @@ const storeTodos = () => {
         .from(`todos:uid_user=eq.${id}`)
         .on('*', (payload) => {
           console.log('Change received!', payload);
+          console.log('Change received!', payload.eventType);
           if (payload.eventType === 'INSERT') {
             console.log('je insert');
 
