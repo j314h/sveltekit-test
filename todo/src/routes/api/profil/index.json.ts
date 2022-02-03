@@ -3,12 +3,14 @@ import { supabase } from '../../../lib/providers/supabase/supabase.service';
 
 export const get = async () => {
   // afficher le profil de la personne connecter
-  const { data: profil, error } = await (await supabase.from('profils').select('*').eq('id', supabase.auth.user().id));
+  const { data: profils, error } = await supabase.from('profils').select('*').eq('uid_user', supabase.auth.user().id);
 
+  console.log('prof2=>',profils);
+  
   // si erreur
   if(error) {
     return {
-      status: 500,
+      status: error.code,
       body: {
         error: error.message,
       }
@@ -18,7 +20,7 @@ export const get = async () => {
   return {
     status: 200,
     body: {
-      profil,
+      profil: profils[0],
     }
   }
 }

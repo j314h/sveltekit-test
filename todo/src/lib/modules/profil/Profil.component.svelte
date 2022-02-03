@@ -5,7 +5,7 @@
   let profilUpdate: boolean = false;
   export let resProfil;
 
-  // ste le profil
+  // set le profil
   profileStore.set(resProfil);
 
   // afficher ou cacher la modification du profil
@@ -21,8 +21,8 @@
   </div>
 
   <!-- partie profile -->
-  {#if !profilUpdate}
-    {JSON.stringify($profileStore)}
+  {#if !profilUpdate && $profileStore?.id}
+    <p>{$profileStore.pseudo}</p>
   {:else}
     <p>blabla</p>
   {/if}

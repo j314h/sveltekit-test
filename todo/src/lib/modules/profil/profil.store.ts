@@ -1,26 +1,22 @@
+import type { IProfil } from './profil.type';
 import { supabase } from './../../providers/supabase/supabase.service';
 import { writable } from 'svelte/store';
 
 
 const storeProfil = () => {
-  const {set, subscribe, update} = writable([]);
+  const {set, subscribe, update} = writable({} as IProfil);
 
   return {
     set,
     subscribe,
 
     listen: (id: string) => {
-      const sub = supabase.from('profils')
+      const sub = supabase.from(`profils:uid_user=eq.${id}`)
       .on('UPDATE', payload => {
         console.log('Change received!', payload)
         
         update((n) => {
-          n = n.map((el) => {
-            if(el.id === payload.new.id) {
-              el = {...el, ...payload.new };
-            }
-            return el;
-          });
+          n = { ...n, ...payload.new}
           return n;
         })
       })

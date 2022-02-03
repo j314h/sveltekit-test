@@ -18,6 +18,8 @@
     if (res.ok || resProfil.ok) {
       const todos = await res.json();
       const profil = await resProfil.json();
+      console.log('profil =>', profil);
+
       return {
         props: {
           todos: todos.todos,
@@ -42,6 +44,7 @@
   import { profileStore } from '$lib/modules/profil/profil.store';
   import Profil from '$lib/modules/profil/Profil.component.svelte';
 
+  export let resProfil;
   export let todos: ITodo[];
   todoStore.set(todos);
 
