@@ -22,7 +22,7 @@
         />
       </svg>
     </button>
-    <div class="p-2 shadow dropdown-content bg-base-100 rounded-box w-52">
+    <div class="p-2 shadow-lg border-2  dropdown-content bg-base-100 rounded-box w-80">
       <Profil {resProfil} />
     </div>
   </div>

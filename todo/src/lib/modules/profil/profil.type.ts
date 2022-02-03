@@ -7,6 +7,7 @@ export interface IProfil {
   avatar?: string,
   last_name?: string,
   first_name?: string,
-  code_postal?: string,
+  code_post?: string,
   uid_user?: string,
+  email?:string
 }
