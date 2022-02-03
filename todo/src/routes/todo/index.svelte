@@ -13,12 +13,15 @@
 
     // appelle todo
     const res = await fetch('api/todo.json', { method: 'GET' });
-    if (res.ok) {
-      const todos = await res.json();
+    const resProfil = await fetch('api/profil.json', { method: 'GET' });
 
+    if (res.ok || resProfil.ok) {
+      const todos = await res.json();
+      const profil = await resProfil.json();
       return {
         props: {
-          todos: todos.todos
+          todos: todos.todos,
+          resProfil: profil.profil
         }
       };
     } else {
@@ -35,6 +38,9 @@
   import { session } from '$app/stores';
   import { onMount } from 'svelte';
   import { flip } from 'svelte/animate';
+  import Header from '$lib/modules/header/Header.component.svelte';
+  import { profileStore } from '$lib/modules/profil/profil.store';
+  import Profil from '$lib/modules/profil/Profil.component.svelte';
 
   export let todos: ITodo[];
   todoStore.set(todos);
@@ -49,6 +55,7 @@
 
   onMount(() => {
     todoStore.listen($session.user.id);
+    profileStore.listen($session.user.id);
   });
 </script>
 
@@ -56,6 +63,9 @@
 <svelte:head>
   <title>Accueil | Ma liste</title>
 </svelte:head>
+
+<!-- header -->
+<Header {resProfil} />
 
 <button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
