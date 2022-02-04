@@ -1,23 +1,25 @@
+import { createClient } from '@supabase/supabase-js';
 import { supabase } from './../../../lib/providers/supabase/supabase.service';
-export const patch = async ({params, request}) => {
-  // récupéré le body 
+
+export const patch = async ({ params, request }) => {
+  // récupéré le body
   const body = await request.json();
 
-  console.log('body=>',body);
-  
+  console.log('body=>', body);
+
   // modification du user
-  const { user, error } = await supabase.auth.update({ 
-    data: body,
-  })
+  const { user, error } = await supabase.auth.update({
+    data: body
+  });
 
   // si erreur
   if (error) {
     return {
       status: 500,
       body: {
-      error: error.message,
-      },
-    }
+        error: error.message
+      }
+    };
   }
 
   return {
@@ -25,24 +27,25 @@ export const patch = async ({params, request}) => {
     body: {
       user
     }
-  }
-}
+  };
+};
 
 export const del = async ({ params }) => {
-  console.log('user=>',supabase.auth.user().id);
-  
-  const { data: user, error } = await supabase.auth.api.deleteUser(
-    supabase.auth.user().id +
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjQzNjQxMjQyLCJleHAiOjE5NTkyMTcyNDJ9.MeVpnoc7OJHiZOcHiD9vwCx4j48E4zc0-a0VjuoDx1U'
-  );
-    console.log('USER=>',user);
-    
+  console.log('user=>', supabase.auth.user().id);
+  const userId = supabase.auth.user().id;
+
+  const supa = createClient(import.meta.env.VITE_URL_SUPABASE, import.meta.env.VITE_SECRET);
+
+  const { error } = await supa.auth.api.deleteUser(userId);
+
+  console.log('ERR=>', error);
+
   if (error) {
     return {
       status: error.status,
       body: {
         error: error.message,
-        deleted: false 
+        deleted: false
       }
     };
   }
@@ -53,4 +56,4 @@ export const del = async ({ params }) => {
       deleted: true
     }
   };
-}
+};
