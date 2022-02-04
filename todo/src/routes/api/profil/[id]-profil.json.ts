@@ -25,3 +25,28 @@ export const patch = async ({ params, request }) => {
     }
   };
 };
+
+export const del = async ({ params }) => {
+
+const { error } = await supabase
+  .from('profils')
+  .delete()
+  .eq('id', params.id);
+
+  if (error) {
+    return {
+      status: error.code,
+      body: {
+        error: error.message,
+        deleted: false
+      }
+    };
+  }
+
+  return {
+    status: 200,
+    body: {
+      deleted: true
+    }
+  };
+}

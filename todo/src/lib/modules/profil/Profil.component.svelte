@@ -49,6 +49,27 @@
     }
   };
 
+  // delete du user connecté
+  const deleteProfil = async (id: string): Promise<void> => {
+    // delete le profil
+    const res = await fetch(`api/profil/${id}-profil.json`, { method: 'DELETE' });
+    const resJson = await res.json();
+
+    if (!resJson.deleted) {
+      throw new Error(resJson.error);
+    }
+
+    // delete le user metadata
+    const resUser = await fetch(`api/auth/${id}-auth.json`, { method: 'DELETE' });
+    const resJsonUser = await res.json();
+
+    if (!resJsonUser.deleted) {
+      throw new Error(resJson.error);
+    } else {
+      $session.user = resJsonUser.user;
+    }
+  };
+
   // ferme le volet profil
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
@@ -65,6 +86,28 @@
 <section
   class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
+  <!-- btn delete -->
+  <button
+    class="text-red-500 ml-4"
+    on:click={async () => {
+      await deleteProfil($profileStore.id);
+    }}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+      />
+    </svg>
+  </button>
   <!-- fermeture du volet profil -->
   <div class="text-right">
     <button

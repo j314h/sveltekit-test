@@ -27,3 +27,28 @@ export const patch = async ({params, request}) => {
     }
   }
 }
+
+export const del = async ({ params }) => {
+  
+  const { data: user, error } = await supabase.auth.api.deleteUser(
+    '715ed5db-f090-4b8c-a067-640ecee36aa0',
+    'YOUR_SERVICE_ROLE_KEY'
+  );
+
+  if (error) {
+    return {
+      status: 500,
+      body: {
+        error: error.message,
+        deleted: false 
+      }
+    };
+  }
+
+  return {
+    status: 200,
+    body: {
+      deleted: true
+    }
+  };
+}
