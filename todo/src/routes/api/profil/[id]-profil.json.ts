@@ -33,6 +33,7 @@ const { error } = await supabase
   .delete()
   .eq('id', params.id);
 
+  // si erreur
   if (error) {
     return {
       status: error.code,

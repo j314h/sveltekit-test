@@ -29,15 +29,17 @@ export const patch = async ({params, request}) => {
 }
 
 export const del = async ({ params }) => {
+  console.log('user=>',supabase.auth.user().id);
   
   const { data: user, error } = await supabase.auth.api.deleteUser(
-    '715ed5db-f090-4b8c-a067-640ecee36aa0',
-    'YOUR_SERVICE_ROLE_KEY'
+    supabase.auth.user().id +
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjQzNjQxMjQyLCJleHAiOjE5NTkyMTcyNDJ9.MeVpnoc7OJHiZOcHiD9vwCx4j48E4zc0-a0VjuoDx1U'
   );
-
+    console.log('USER=>',user);
+    
   if (error) {
     return {
-      status: 500,
+      status: error.status,
       body: {
         error: error.message,
         deleted: false 

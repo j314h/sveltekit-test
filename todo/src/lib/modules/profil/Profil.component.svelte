@@ -61,12 +61,13 @@
 
     // delete le user metadata
     const resUser = await fetch(`api/auth/${id}-auth.json`, { method: 'DELETE' });
-    const resJsonUser = await res.json();
+    const resJsonUser = await resUser.json();
 
     if (!resJsonUser.deleted) {
-      throw new Error(resJson.error);
+      throw new Error(resJsonUser.error);
     } else {
-      $session.user = resJsonUser.user;
+      // $session.user = null;
+      console.log('réussi');
     }
   };
 
@@ -165,14 +166,20 @@
   {#if !profilUpdate && $profileStore?.id}
     <section class="profil_info">
       <p><span>Pseudo :</span> {$profileStore.pseudo}</p>
-      <p><span>Email :</span> {firstToUppperCase($profileStore.email)}</p>
-      <p><span>Nom :</span> {firstToUppperCase($profileStore.last_name)}</p>
-      <p><span>Prénom :</span> {firstToUppperCase($profileStore.first_name)}</p>
+      <p><span>Email :</span> {$profileStore.email}</p>
+      <p>
+        <span>Nom :</span>
+        {$profileStore?.last_name ? firstToUppperCase($profileStore.last_name) : '-'}
+      </p>
+      <p>
+        <span>Prénom :</span>
+        {$profileStore?.first_name ? firstToUppperCase($profileStore.first_name) : '-'}
+      </p>
       <p>
         <span>Adresse :</span>
-        {firstToUppperCase($profileStore.adress)}
-        {firstToUppperCase($profileStore.code_post)}
-        {firstToUppperCase($profileStore.city)}
+        {$profileStore?.adress ? firstToUppperCase($profileStore.adress) : '-'}
+        {$profileStore?.code_post ? firstToUppperCase($profileStore.code_post) : '-'}
+        {$profileStore?.city ? firstToUppperCase($profileStore.city) : '-'}
       </p>
     </section>
   {:else}
