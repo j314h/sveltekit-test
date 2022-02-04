@@ -2,6 +2,7 @@
   import { profileStore } from './profil.store';
   import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
   import { createEventDispatcher, onMount } from 'svelte';
+  import { session } from '$app/stores';
 
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
@@ -21,6 +22,20 @@
     console.log('FORM : ', formData);
     console.log('ID : ', id);
 
+    // modification du user metadata
+    const resUser = await fetch(`api/auth/${id}-auth.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData)
+    });
+    const resUserJson = await resUser.json();
+
+    if (!resUser.ok) {
+      throw new Error(resUserJson.error);
+    } else {
+      $session.user = resUserJson.user;
+    }
+
+    // modification du profil
     const res = await fetch(`api/profil/${id}-profil.json`, {
       method: 'PATCH',
       body: JSON.stringify(formData)
@@ -200,19 +215,6 @@
             type="text"
             placeholder="Ville"
             value={$profileStore.city}
-          />
-        </div>
-
-        <!-- email -->
-        <div>
-          <label for="email">Email : </label>
-          <input
-            class="input input-bordered input-sm rounded-full w-full"
-            id="email"
-            name="email"
-            type="text"
-            placeholder="email"
-            value={$profileStore.email}
           />
         </div>
 
