@@ -32,6 +32,8 @@
 
     if (!resJson.update) {
       throw new Error(resJson.error);
+    } else {
+      updateChange();
     }
   };
 
@@ -42,19 +44,19 @@
 </script>
 
 <section
-  class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-4 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+  class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
   <!-- fermeture du volet profil -->
   <div class="text-right">
     <button
-      class="btn btn-circle text-primary bg-slate-100 border-none hover:bg-slate-300"
+      class="btn btn-circle btn-sm sm:btn-md text-primary bg-slate-100 border-none hover:bg-slate-300"
       on:click={closeProfil}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        class="inline-block w-6 h-6 stroke-current"
+        class="inline-block w-4 h-4 sm:w-6 sm:h-6 stroke-current"
       >
         <path
           stroke-linecap="round"
