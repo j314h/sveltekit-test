@@ -1,6 +1,10 @@
 <script lang="ts">
   import { profileStore } from './profil.store';
   import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
+  import { createEventDispatcher } from 'svelte';
+
+  // dispatch pour changer la variable du parent pour fermer le volet profil
+  const disp = createEventDispatcher();
 
   let profilUpdate = false;
   export let resProfil;
@@ -30,9 +34,37 @@
       throw new Error(resJson.error);
     }
   };
+
+  // ferme le volet profil
+  const closeProfil = () => {
+    disp('closeShutterProfil', { seeProfil: false });
+  };
 </script>
 
-<section>
+<section
+  class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-4 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+>
+  <!-- fermeture du volet profil -->
+  <div class="text-right">
+    <button
+      class="btn btn-circle text-primary bg-slate-100 border-none hover:bg-slate-300"
+      on:click={closeProfil}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="inline-block w-6 h-6 stroke-current"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
     <!-- partie boutton -->

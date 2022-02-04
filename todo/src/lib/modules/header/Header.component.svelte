@@ -1,6 +1,5 @@
 <script lang="ts">
   import { session } from '$app/stores';
-
   import Profil from '../profil/Profil.component.svelte';
 
   // profil venant de la fonction load
@@ -8,7 +7,10 @@
 
   // switch pour mode dark
   let btnDark = false;
+  // pour afficher/cacher profil
+  let seeProfil = false;
 
+  // deconnection user
   const deconnect = async () => {
     const res = await fetch('api/logout.json');
 
@@ -16,33 +18,37 @@
       $session.user = null;
     }
   };
+
+  // affiche cache le profil
+  const forSeeProfil = () => {
+    seeProfil = !seeProfil;
+  };
+
+  // close volet profil depuis le composant profil
+  const closedProfil = (e) => {
+    seeProfil = e.detail.seeProfil;
+  };
 </script>
 
 <header class="bg-primary py-4 px-8 md:px-12 z-40 fixed top-0 left-0 w-full flex justify-between">
   <!-- boutton profile -->
-  <div class="dropdown">
-    <button class="text-white">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </button>
-    <div
-      class="py-12 px-10 shadow-lg card border-2 border-primary dropdown-content bg-base-100 rounded-box w-80"
-    >
-      <Profil {resProfil} />
-    </div>
-  </div>
+  <button class="text-white" on:click={forSeeProfil}>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+      <path
+        fill-rule="evenodd"
+        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </button>
+
+  <!-- profil -->
+  {#if seeProfil}
+    <Profil {resProfil} on:closeShutterProfil={closedProfil} />
+  {/if}
+
+  <!-- switch dark mode -->
   <div>
-    <!-- switch dark mode -->
     <button class="text-white">
       {#if btnDark}
         <svg
