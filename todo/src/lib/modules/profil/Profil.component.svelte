@@ -1,16 +1,13 @@
 <script lang="ts">
   import { profileStore } from './profil.store';
   import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
 
   let profilUpdate = false;
   export let resProfil;
-
-  // set le profil
-  profileStore.set(resProfil);
 
   // afficher ou cacher la modification du profil
   const updateChange = () => {
@@ -41,6 +38,13 @@
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
   };
+
+  onMount(() => {
+    // si le store est vide on set le profil
+    if (!$profileStore?.id) {
+      profileStore.set(resProfil);
+    }
+  });
 </script>
 
 <section

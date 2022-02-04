@@ -13,6 +13,8 @@
 
     // appelle todo
     const res = await fetch('api/todo.json', { method: 'GET' });
+    console.log('coucou');
+
     const resProfil = await fetch('api/profil.json', { method: 'GET' });
 
     if (res.ok || resProfil.ok) {
@@ -42,7 +44,6 @@
   import { flip } from 'svelte/animate';
   import Header from '$lib/modules/header/Header.component.svelte';
   import { profileStore } from '$lib/modules/profil/profil.store';
-  import Profil from '$lib/modules/profil/Profil.component.svelte';
 
   export let resProfil;
   export let todos: ITodo[];
