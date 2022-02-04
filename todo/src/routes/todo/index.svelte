@@ -48,14 +48,6 @@
   export let todos: ITodo[];
   todoStore.set(todos);
 
-  const deconnect = async () => {
-    const res = await fetch('api/logout.json');
-
-    if (res.ok) {
-      $session.user = null;
-    }
-  };
-
   onMount(() => {
     todoStore.listen($session.user.id);
     profileStore.listen($session.user.id);
@@ -69,8 +61,6 @@
 
 <!-- header -->
 <Header {resProfil} />
-
-<button class="btn btn-primary mb-12" on:click={deconnect}>Me déconnecter</button>
 
 {#if $todoStore.length > 0}
   <h2 class="mb-8 font-bold text-lg text-center">

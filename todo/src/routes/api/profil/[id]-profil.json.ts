@@ -1,18 +1,19 @@
 import { supabase } from '../../../lib/providers/supabase/supabase.service';
-export const patch = async ({paramas, request}) => {
-  // récupérer le body 
+
+export const patch = async ({ params, request }) => {
+  // récupérer le body
   const body = await request.json();
 
   // modifier le profile
-  const { error } = await supabase.from('profils').update(body).eq('id', paramas.id);
+  const { error } = await supabase.from('profils').update(body).eq('id', params.id);
 
   // si erreur
-  if(error) {
+  if (error) {
     return {
       status: error.code,
       body: {
         error: error.message,
-        uudate: false,
+        update: false
       }
     };
   }
@@ -20,7 +21,7 @@ export const patch = async ({paramas, request}) => {
   return {
     status: 200,
     body: {
-      update: true,
+      update: true
     }
-  }
-}
+  };
+};
