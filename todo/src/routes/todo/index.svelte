@@ -13,14 +13,13 @@
 
     // appelle todo
     const res = await fetch('api/todo.json', { method: 'GET' });
-    console.log('coucou');
 
+    // appelle profil
     const resProfil = await fetch('api/profil.json', { method: 'GET' });
 
     if (res.ok || resProfil.ok) {
       const todos = await res.json();
       const profil = await resProfil.json();
-      console.log('profil =>', profil);
 
       return {
         props: {
@@ -63,7 +62,7 @@
 <!-- header -->
 <Header {resProfil} />
 
-{#if $todoStore.length > 0}
+{#if $todoStore?.length > 0}
   <h2 class="mb-8 font-bold text-lg text-center">
     {$session.user ? $session.user.user_metadata.pseudo : null}, il a encore des choses à faire
   </h2>
@@ -73,7 +72,7 @@
 <TodoCreate />
 
 <!-- list todo -->
-{#if $todoStore.length > 0}
+{#if $todoStore?.length > 0}
   {#each $todoStore as todo, index (todo)}
     <div
       class="shadow-md py-4 px-2 card bordered mt-4 w-full md:w-8/12 lg:w-6/12"
