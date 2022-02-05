@@ -27,11 +27,8 @@ export const patch = async ({ params, request }) => {
 };
 
 export const del = async ({ params }) => {
-
-const { error } = await supabase
-  .from('profils')
-  .delete()
-  .eq('id', params.id);
+  // supprime le profil en ciblant la colone id
+  const { error } = await supabase.from('profils').delete().eq('id', params.id);
 
   // si erreur
   if (error) {
@@ -50,4 +47,4 @@ const { error } = await supabase
       deleted: true
     }
   };
-}
+};

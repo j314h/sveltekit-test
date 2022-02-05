@@ -5,9 +5,7 @@ export const patch = async ({ params, request }) => {
   // récupéré le body
   const body = await request.json();
 
-  console.log('body=>', body);
-
-  // modification du user
+  // modification du user dans la table auth
   const { user, error } = await supabase.auth.update({
     data: body
   });
@@ -30,16 +28,17 @@ export const patch = async ({ params, request }) => {
   };
 };
 
-export const del = async ({ params }) => {
-  console.log('user=>', supabase.auth.user().id);
+export const del = async () => {
+  // recuperation de l'id du user current
   const userId = supabase.auth.user().id;
 
+  // creation du client supabase avec la clef secret_role
   const supa = createClient(import.meta.env.VITE_URL_SUPABASE, import.meta.env.VITE_SECRET);
 
+  // suppression du user dans la table auth user
   const { error } = await supa.auth.api.deleteUser(userId);
 
-  console.log('ERR=>', error);
-
+  // si error
   if (error) {
     return {
       status: error.status,

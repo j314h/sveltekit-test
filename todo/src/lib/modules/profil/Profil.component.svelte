@@ -10,19 +10,23 @@
   let profilUpdate = false;
   export let resProfil;
 
-  // afficher ou cacher la modification du profil
+  /**
+   * afficher ou cacher la modification du profil
+   */
   const updateChange = () => {
     profilUpdate = !profilUpdate;
   };
 
-  // modification du profil
+  /**
+   * modification du profil
+   * @param e => le event
+   * @param id => l'id du profil
+   */
   const updateProfil = async (e, id) => {
+    // creation des données
     const formData = createObjectAsFormData(e.target);
 
-    console.log('FORM : ', formData);
-    console.log('ID : ', id);
-
-    // modification du user metadata
+    // modification du user metadata dans la table auth
     const resUser = await fetch(`api/auth/${id}-auth.json`, {
       method: 'PATCH',
       body: JSON.stringify(formData)
@@ -32,10 +36,11 @@
     if (!resUser.ok) {
       throw new Error(resUserJson.error);
     } else {
+      // on affecte les modifications à la session
       $session.user = resUserJson.user;
     }
 
-    // modification du profil
+    // modification du profil correspondant au user connecté
     const res = await fetch(`api/profil/${id}-profil.json`, {
       method: 'PATCH',
       body: JSON.stringify(formData)
@@ -45,11 +50,15 @@
     if (!resJson.update) {
       throw new Error(resJson.error);
     } else {
+      // on ferme le volet de modification de profil
       updateChange();
     }
   };
 
-  // delete du user connecté
+  /**
+   * delete du user connecté
+   * @param id => id du profil
+   */
   const deleteProfil = async (id: string): Promise<void> => {
     // delete le profil
     const res = await fetch(`api/profil/${id}-profil.json`, { method: 'DELETE' });
@@ -59,19 +68,22 @@
       throw new Error(resJson.error);
     }
 
-    // delete le user metadata
-    const resUser = await fetch(`api/auth/${id}-auth.json`, { method: 'DELETE' });
+    // delete le user dans la table auth
+    const resUser = await fetch(`api/auth/0-auth.json`, { method: 'DELETE' });
     const resJsonUser = await resUser.json();
 
     if (!resJsonUser.deleted) {
       throw new Error(resJsonUser.error);
     } else {
-      // $session.user = null;
-      console.log('réussi');
+      // on supprime le user contenu dans la session
+      $session.user = null;
     }
   };
 
-  // ferme le volet profil
+  /**
+   * ferme le volet profil
+   * creation d'un dispatch renvoie la valeur au parent
+   */
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
   };
@@ -87,28 +99,6 @@
 <section
   class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
-  <!-- btn delete -->
-  <button
-    class="text-red-500 ml-4"
-    on:click={async () => {
-      await deleteProfil($profileStore.id);
-    }}
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-      />
-    </svg>
-  </button>
   <!-- fermeture du volet profil -->
   <div class="text-right">
     <button
@@ -130,9 +120,9 @@
       </svg>
     </button>
   </div>
+  <!-- partie boutton -->
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
-    <!-- partie boutton -->
     <button on:click={updateChange} class="text-secondary">
       {#if profilUpdate}
         <svg
@@ -181,6 +171,29 @@
         {$profileStore?.code_post ? firstToUppperCase($profileStore.code_post) : '-'}
         {$profileStore?.city ? firstToUppperCase($profileStore.city) : '-'}
       </p>
+      <!-- btn delete -->
+      <button
+        class="text-red-500 mt-8 text-xs flex items-center hover:underline"
+        on:click={async () => {
+          await deleteProfil($profileStore.id);
+        }}
+      >
+        supprimer mon compte
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 ml-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+      </button>
     </section>
   {:else}
     <!-- partie update profile -->
