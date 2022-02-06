@@ -56,7 +56,7 @@
 
 <!-- head -->
 <svelte:head>
-  <title>Accueil | Ma liste</title>
+  <title>Accueil | Ma Todo</title>
 </svelte:head>
 
 <!-- header -->
