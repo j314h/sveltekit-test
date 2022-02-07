@@ -69,6 +69,7 @@
 
       if (!resJson.deleted) {
         throw new Error(resJson.error);
+        // TODO : gerer l'erreur avec notification ici
       }
 
       // delete le user dans la table auth
@@ -76,13 +77,14 @@
       const resJsonUser = await resUser.json();
 
       if (!resJsonUser.deleted) {
+        // TODO : implementer les notifications error
         throw new Error(resJsonUser.error);
       } else {
         // on supprime le user contenu dans la session
         $session.user = null;
       }
     } else {
-      // implementer les notifications error
+      // TODO : implementer les notifications error
       // throw error
       throw new Error('Veuillez terminer toutes vos tâches avant de supprimer votre compte');
     }
