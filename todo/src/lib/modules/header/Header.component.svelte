@@ -74,7 +74,7 @@
   {/if}
 
   <!-- switch dark mode -->
-  <div>
+  <div class="flex items-center">
     <button class="text-white" on:click={switchTheme}>
       {#if btnDark}
         <div data-tip="mode claire" class="tooltip tooltip-bottom tooltip-secondary">
@@ -114,7 +114,7 @@
     </button>
 
     <!-- boutton déconnecté -->
-    <div data-tip="se déconnecter" class="tooltip tooltip-bottom tooltip-secondary">
+    <div data-tip="se déconnecter" class="tooltip tooltip-bottom tooltip-secondary ml-4 md:ml-6">
       <button class="ml-4 md:ml-8" on:click={deconnect}>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 18 18" fill="none">
           <path
