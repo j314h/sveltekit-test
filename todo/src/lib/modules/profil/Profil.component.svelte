@@ -87,13 +87,6 @@
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
   };
-
-  onMount(() => {
-    // si le store est vide on set le profil
-    if (!$profileStore?.id) {
-      profileStore.set(resProfil);
-    }
-  });
 </script>
 
 <section

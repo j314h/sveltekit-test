@@ -39,7 +39,7 @@
 <script lang="ts">
   import TodoCreate from '$lib/modules/todo/Todo-create.component.svelte';
   import { session } from '$app/stores';
-  import { onMount } from 'svelte';
+  import { beforeUpdate, onMount } from 'svelte';
   import { flip } from 'svelte/animate';
   import Header from '$lib/modules/header/Header.component.svelte';
   import { profileStore } from '$lib/modules/profil/profil.store';
@@ -47,6 +47,13 @@
   export let resProfil;
   export let todos: ITodo[];
   todoStore.set(todos);
+
+  beforeUpdate(() => {
+    // si le store est vide on set le profil
+    if (!$profileStore?.id) {
+      profileStore.set(resProfil);
+    }
+  });
 
   onMount(() => {
     todoStore.listen($session.user.id);
@@ -62,9 +69,10 @@
 <!-- header -->
 <Header {resProfil} />
 
-{#if $todoStore?.length > 0}
+<!-- si profil et todo sont charger -->
+{#if $todoStore?.length > 0 && $profileStore?.id}
   <h2 class="mb-8 font-bold text-lg text-center">
-    {$session.user ? $session.user.user_metadata.pseudo : null}, il a encore des choses à faire
+    {$profileStore?.id ? $profileStore.pseudo : 'utilisateur'}, il y a encore des choses à faire
   </h2>
 {/if}
 
@@ -83,6 +91,9 @@
   {/each}
 {:else}
   <p class="font-bold text-3xl text-center">
-    Hé {$session.user ? $session.user.user_metadata.pseudo : null}, vous pouvez vous reposer !
+    <!-- si profil est charger -->
+    {#if $profileStore?.id}
+      Hé {$profileStore?.id ? $profileStore.pseudo : 'utilisateur'}, vous pouvez vous reposer !
+    {/if}
   </p>
 {/if}
