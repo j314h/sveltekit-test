@@ -13,26 +13,34 @@
 
     // appelle todo
     const res = await fetch('api/todo.json', { method: 'GET' });
+    // si error
+    if (!res.ok) {
+      return {
+        status: 404,
+        error: 'Impossible de récupèrer les todos'
+      };
+    }
 
     // appelle profil
     const resProfil = await fetch('api/profil.json', { method: 'GET' });
-
-    if (res.ok || resProfil.ok) {
-      const todos = await res.json();
-      const profil = await resProfil.json();
-
-      return {
-        props: {
-          todos: todos.todos,
-          resProfil: profil.profil
-        }
-      };
-    } else {
+    // si error
+    if (!resProfil.ok) {
       return {
         status: 404,
-        error: "Les todos n'ont pas pu etre récupèré"
+        error: 'Impossible de récupèrer le profil'
       };
     }
+
+    // modification json
+    const todos = await res.json();
+    const profil = await resProfil.json();
+
+    return {
+      props: {
+        todos: todos.todos,
+        resProfil: profil.profil
+      }
+    };
   };
 </script>
 
