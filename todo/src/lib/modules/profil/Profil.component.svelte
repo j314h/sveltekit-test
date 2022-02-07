@@ -101,7 +101,7 @@
 </script>
 
 <section
-  class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+  class="absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
   <!-- fermeture du volet profil -->
   <div class="text-right">
@@ -184,7 +184,7 @@
           await deleteProfil($profileStore.id);
         }}
       >
-        supprimer mon compte
+        Supprimer mon compte
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 ml-2"
@@ -200,6 +200,16 @@
           />
         </svg>
       </button>
+
+      <!-- lien vers réinitialisation mot de passe et email -->
+      <div class="mt-6">
+        <div>
+          <a class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</a>
+        </div>
+        <div>
+          <a class="link link-hover text-xs text-cyan-500 mt-2">Réinitialiser mon mot de passe</a>
+        </div>
+      </div>
     </section>
   {:else}
     <!-- partie update profile -->
