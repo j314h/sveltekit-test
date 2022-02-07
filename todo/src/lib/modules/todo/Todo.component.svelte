@@ -70,7 +70,7 @@
       <input
         type="checkbox"
         checked={todo.check}
-        class="checkbox mr-6 checkbox-secondary"
+        class="checkbox mr-6 checkbox-accent"
         on:change={async (e) => {
           await changeCheck(e, todo.id);
         }}
@@ -78,9 +78,7 @@
       <span class="label-text ml-2 md:ml-4 text-justify">{todo.text}</span>
       <div class="flex">
         <!-- btn change text -->
-        <HoverBtn>
-          <BtnUpdate {updateChange} />
-        </HoverBtn>
+        <BtnUpdate {updateChange} />
 
         <!-- btn delete -->
         <HoverBtn>
@@ -122,29 +120,31 @@
       >
         <!-- input du text -->
         <input
-          class="input input-bordered input-sm rounded-full w-full "
+          class="input input-bordered input-sm rounded-full w-full mr-4"
           type="text"
           name="text"
           bind:value={todo.text}
         />
 
         <!-- boutton de validation du formulaire -->
-        <button class="text-green-500 ml-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        </button>
+        <HoverBtn>
+          <button class="text-green-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </button>
+        </HoverBtn>
       </form>
       <!-- boutton pour revenir a la todo -->
       <BtnCloseUpdate {updateChange} />
