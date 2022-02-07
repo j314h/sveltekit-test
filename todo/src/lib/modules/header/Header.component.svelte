@@ -1,5 +1,6 @@
 <script lang="ts">
   import { session } from '$app/stores';
+  import { supabase } from '$lib/providers/supabase/supabase.service';
   import Profil from '../profil/Profil.component.svelte';
 
   // profil venant de la fonction load

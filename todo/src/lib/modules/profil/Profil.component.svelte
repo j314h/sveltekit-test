@@ -3,6 +3,8 @@
   import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
   import { createEventDispatcher, onMount } from 'svelte';
   import { session } from '$app/stores';
+  import { supabase } from '$lib/providers/supabase/supabase.service';
+  import { todoStore } from '../todo/todo.store';
 
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
@@ -60,23 +62,31 @@
    * @param id => id du profil
    */
   const deleteProfil = async (id: string): Promise<void> => {
-    // delete le profil
-    const res = await fetch(`api/profil/${id}-profil.json`, { method: 'DELETE' });
-    const resJson = await res.json();
+    if ($todoStore.length === 0) {
+      // delete le profil
+      const res = await fetch(`api/profil/${id}-profil.json`, { method: 'DELETE' });
+      const resJson = await res.json();
 
-    if (!resJson.deleted) {
-      throw new Error(resJson.error);
-    }
+      if (!resJson.deleted) {
+        throw new Error(resJson.error);
+        // TODO : gerer l'erreur avec notification ici
+      }
 
-    // delete le user dans la table auth
-    const resUser = await fetch(`api/auth/0-auth.json`, { method: 'DELETE' });
-    const resJsonUser = await resUser.json();
+      // delete le user dans la table auth
+      const resUser = await fetch(`api/auth/0-auth.json`, { method: 'DELETE' });
+      const resJsonUser = await resUser.json();
 
-    if (!resJsonUser.deleted) {
-      throw new Error(resJsonUser.error);
+      if (!resJsonUser.deleted) {
+        // TODO : implementer les notifications error
+        throw new Error(resJsonUser.error);
+      } else {
+        // on supprime le user contenu dans la session
+        $session.user = null;
+      }
     } else {
-      // on supprime le user contenu dans la session
-      $session.user = null;
+      // TODO : implementer les notifications error
+      // throw error
+      throw new Error('Veuillez terminer toutes vos tâches avant de supprimer votre compte');
     }
   };
 
