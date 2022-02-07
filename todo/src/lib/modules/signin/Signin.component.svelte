@@ -37,6 +37,7 @@
           placeholder="E-Mail"
           class="input input-primary input-bordered"
           name="email"
+          required
         />
       </div>
       <!-- input mot de passe -->
@@ -46,6 +47,7 @@
           placeholder="Mot de passe"
           class="input input-primary input-bordered"
           name="password"
+          required
         />
         <!-- mot de passe oublié -->
         <div class="text-right">

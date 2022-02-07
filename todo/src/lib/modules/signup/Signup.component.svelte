@@ -71,6 +71,7 @@
 
       <!-- non required -->
       <section>
+        <h3 class="card-side text-secondary mt-8 font-bold">Optionnel</h3>
         <!-- nom -->
         <div class="form-control mt-2">
           <label for="label">
@@ -116,5 +117,7 @@
         </div>
       </section>
     </form>
+
+    <p class="text-2xs mt-12">* Informations obligatoire</p>
   </div>
 </section>
