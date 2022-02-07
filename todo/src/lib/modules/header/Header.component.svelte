@@ -4,6 +4,10 @@
 
   // profil venant de la fonction load
   export let resProfil;
+  // variable pour modifier le theme en mode dark
+  export let themeMode = 'light';
+  // variable pour la balise html
+  let myHtmlBalise = document.querySelector('#baliseHtml');
 
   // switch pour mode dark
   let btnDark = false;
@@ -28,6 +32,20 @@
   const closedProfil = (e) => {
     seeProfil = e.detail.seeProfil;
   };
+
+  // fonction pour switch de mode dark a mode light
+  const switchTheme = (e) => {
+    // condition qui verifier dans quel théme on se trouve
+    if (themeMode === 'light') {
+      themeMode = 'dark';
+      btnDark = true;
+      myHtmlBalise.setAttribute('data-theme', themeMode);
+    } else {
+      themeMode = 'light';
+      btnDark = false;
+      myHtmlBalise.setAttribute('data-theme', themeMode);
+    }
+  };
 </script>
 
 <header class="bg-primary py-4 px-8 md:px-12 z-40 fixed top-0 left-0 w-full flex justify-between">
@@ -49,7 +67,7 @@
 
   <!-- switch dark mode -->
   <div>
-    <button class="text-white">
+    <button class="text-white" on:click={switchTheme}>
       {#if btnDark}
         <svg
           xmlns="http://www.w3.org/2000/svg"
