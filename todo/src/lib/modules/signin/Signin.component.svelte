@@ -1,11 +1,14 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { session } from '$app/stores';
-
   import { createObjectAsFormData } from 'woo-format';
+
+  let styleLoader = '';
 
   // envoie formulaire connexion user
   const handlerConnexion = async (e) => {
+    styleLoader = 'loading';
+
     // format formData
     const formData = createObjectAsFormData(e.target);
 
@@ -17,10 +20,13 @@
     if (res.ok) {
       $session.user = { ...user };
       goto('/todo');
+      // effacement du formulaire
+      e.target.reset();
     }
 
     // effacement du formulaire
     e.target.reset();
+    styleLoader = '';
   };
 </script>
 
@@ -55,7 +61,7 @@
         </div>
       </div>
       <!-- btn envoie formulaire -->
-      <button class="btn btn-primary">Se connecter</button>
+      <button class={`btn btn-primary ${styleLoader}`}>Se connecter</button>
     </form>
   </div>
 </section>

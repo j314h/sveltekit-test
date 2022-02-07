@@ -7,6 +7,8 @@
   import { todoStore } from '../todo/todo.store';
   import HoverBtn from '../hover-btn/hover-btn.component.svelte';
 
+  let styleLoading = '';
+
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
 
@@ -26,6 +28,8 @@
    * @param id => l'id du profil
    */
   const updateProfil = async (e, id) => {
+    styleLoading = 'loading';
+
     // creation des données
     const formData = createObjectAsFormData(e.target);
 
@@ -56,6 +60,8 @@
       // on ferme le volet de modification de profil
       updateChange();
     }
+
+    styleLoading = '';
   };
 
   /**
@@ -298,7 +304,7 @@
         </div>
 
         <div class="flex justify-end mr-4 my-6">
-          <button class="btn btn-primary btn-sm">Modifier</button>
+          <button class={`btn btn-primary btn-sm ${styleLoading}`}>Modifier</button>
         </div>
       </form>
     </section>
