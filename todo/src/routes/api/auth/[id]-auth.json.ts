@@ -35,15 +35,27 @@ export const del = async () => {
   // creation du client supabase avec la clef secret_role
   const supa = createClient(import.meta.env.VITE_URL_SUPABASE, import.meta.env.VITE_SECRET);
 
-  // suppression du user dans la table auth user
-  const { error } = await supa.auth.api.deleteUser(userId);
-
+  // deconnexion du user
+  const resSignOut = await supabase.auth.signOut();
   // si error
-  if (error) {
+  if (resSignOut.error) {
     return {
-      status: error.status,
+      status: resSignOut.error.status,
       body: {
-        error: error.message,
+        error: resSignOut.error.message,
+        deleted: false
+      }
+    };
+  }
+
+  // suppression du user dans la table auth user
+  const resDelete = await supa.auth.api.deleteUser(userId);
+  // si error
+  if (resDelete.error) {
+    return {
+      status: resDelete.error.status,
+      body: {
+        error: resDelete.error.message,
         deleted: false
       }
     };

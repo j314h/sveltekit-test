@@ -2,8 +2,10 @@ import { supabase } from '$lib/providers/supabase/supabase.service';
 
 export const handle = async ({ event, resolve }) => {
   supabase.auth.onAuthStateChange((event, session) => {
-    console.log('HANDLE EVENT : ', event);
-    console.log('HANDLE SESSION : ', session);
+    // console.log('HANDLE EVENT : ', event);
+    // console.log('HANDLE SESSION : ', session);
+
+    console.log('je suis là');
   });
 
   // recupere le user depuis supabase si son token est toujours valide
