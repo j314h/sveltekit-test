@@ -8,7 +8,7 @@
   // variable pour modifier le theme en mode dark
   export let themeMode = 'light';
   // variable pour la balise html
-  let myHtmlBalise = document.querySelector('#baliseHtml');
+  let myHtmlBalise;
 
   // switch pour mode dark
   let btnDark = false;
@@ -35,16 +35,16 @@
   };
 
   // fonction pour switch de mode dark a mode light
-  const switchTheme = (e) => {
+  const switchTheme = () => {
     // condition qui verifier dans quel théme on se trouve
     if (themeMode === 'light') {
       themeMode = 'dark';
       btnDark = true;
-      myHtmlBalise.setAttribute('data-theme', themeMode);
+      myHtmlBalise = document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
     } else {
       themeMode = 'light';
       btnDark = false;
-      myHtmlBalise.setAttribute('data-theme', themeMode);
+      myHtmlBalise = document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
     }
   };
 </script>
