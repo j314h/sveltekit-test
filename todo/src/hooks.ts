@@ -5,6 +5,8 @@ export const handle = async ({ event, resolve }) => {
     console.log('HANDLE EVENT : ', event);
     console.log('HANDLE SESSION : ', session);
   });
+
+  // recupere le user depuis supabase si son token est toujours valide
   event.locals.user = supabase.auth.user() ? supabase.auth.user() : null;
 
   console.log('USER HANDLE : ', event.locals.user);
