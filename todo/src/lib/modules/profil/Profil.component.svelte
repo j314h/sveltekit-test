@@ -104,6 +104,26 @@
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
   };
+
+  /**
+   * réinitialisation password
+   */
+  const initPassword = async () => {
+    // envoie mail réinitialisation mot de passe
+    const resMail = await fetch('api/init-password/send-init.json', { method: 'GET' });
+    const resJson = await resMail.json();
+
+    // deconnection
+    const resDeconnect = await fetch('api/logout.json');
+
+    // si tous est ok
+    if (resMail.ok && resDeconnect.ok) {
+      $session.user = null;
+    } else {
+      // gestion d'erreur
+      throw new Error(resJson.error);
+    }
+  };
 </script>
 
 <section
@@ -213,7 +233,9 @@
           <a class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</a>
         </div>
         <div>
-          <a class="link link-hover text-xs text-cyan-500 mt-2">Réinitialiser mon mot de passe</a>
+          <button class="link link-hover text-xs text-cyan-500 mt-2" on:click={initPassword}
+            >Réinitialiser mon mot de passe</button
+          >
         </div>
       </div>
     </section>
