@@ -5,6 +5,9 @@
   import { session } from '$app/stores';
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { todoStore } from '../todo/todo.store';
+  import HoverBtn from '../hover-btn/hover-btn.component.svelte';
+
+  let styleLoading = '';
 
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
@@ -25,6 +28,8 @@
    * @param id => l'id du profil
    */
   const updateProfil = async (e, id) => {
+    styleLoading = 'loading';
+
     // creation des données
     const formData = createObjectAsFormData(e.target);
 
@@ -55,6 +60,8 @@
       // on ferme le volet de modification de profil
       updateChange();
     }
+
+    styleLoading = '';
   };
 
   /**
@@ -97,10 +104,30 @@
   const closeProfil = () => {
     disp('closeShutterProfil', { seeProfil: false });
   };
+
+  /**
+   * réinitialisation password
+   */
+  const initPassword = async () => {
+    // envoie mail réinitialisation mot de passe
+    const resMail = await fetch('api/init-password/send-init.json', { method: 'GET' });
+    const resJson = await resMail.json();
+
+    // deconnection
+    const resDeconnect = await fetch('api/logout.json');
+
+    // si tous est ok
+    if (resMail.ok && resDeconnect.ok) {
+      $session.user = null;
+    } else {
+      // gestion d'erreur
+      throw new Error(resJson.error);
+    }
+  };
 </script>
 
 <section
-  class="absolute w-72 sm:w-96 bg-white shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+  class="absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
   <!-- fermeture du volet profil -->
   <div class="text-right">
@@ -126,33 +153,35 @@
   <!-- partie boutton -->
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
-    <button on:click={updateChange} class="text-secondary">
-      {#if profilUpdate}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 static"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      {:else}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 static"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-          />
-        </svg>
-      {/if}
-    </button>
+    <HoverBtn>
+      <button on:click={updateChange} class="text-secondary">
+        {#if profilUpdate}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 static"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        {:else}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 static"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+            />
+          </svg>
+        {/if}
+      </button>
+    </HoverBtn>
   </div>
 
   <!-- partie profile -->
@@ -181,7 +210,7 @@
           await deleteProfil($profileStore.id);
         }}
       >
-        supprimer mon compte
+        Supprimer mon compte
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 ml-2"
@@ -197,6 +226,18 @@
           />
         </svg>
       </button>
+
+      <!-- lien vers réinitialisation mot de passe et email -->
+      <div class="mt-6">
+        <div>
+          <a class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</a>
+        </div>
+        <div>
+          <button class="link link-hover text-xs text-cyan-500 mt-2" on:click={initPassword}
+            >Réinitialiser mon mot de passe</button
+          >
+        </div>
+      </div>
     </section>
   {:else}
     <!-- partie update profile -->
@@ -285,7 +326,7 @@
         </div>
 
         <div class="flex justify-end mr-4 my-6">
-          <button class="btn btn-primary btn-sm">Modifier</button>
+          <button class={`btn btn-primary btn-sm ${styleLoading}`}>Modifier</button>
         </div>
       </form>
     </section>
