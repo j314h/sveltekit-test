@@ -12,14 +12,6 @@
     <!-- parcourir le tableau de notification -->
     {#each $notificationStore as notification}
       <div class="alert">
-        <!-- titre -->
-        <p class="font-bold mb-2 flex">
-          <span>{constNotification.title_notification}</span>
-        </p>
-
-        <!-- text de la notification -->
-        <p class="text-sm">{firstToUppperCase(notification)}</p>
-
         <!-- icone cloche -->
         <div class="flex-1">
           <svg
@@ -37,12 +29,19 @@
             />
           </svg>
         </div>
+        <!-- titre -->
+        <p class="font-bold mb-2 flex">
+          <span>{constNotification.title_notification}</span>
+        </p>
+
+        <!-- text de la notification -->
+        <p class="text-sm">{firstToUppperCase(notification)}</p>
+
         <div class="flex-none">
           <!-- boutton supprimer notification -->
           <button
             class="text-red-500 mt-auto text-xs flex items-center hover:underline"
-            on:click={() =>
-              notificationStore.removeNotification(constNotification.title_notification)}
+            on:click={() => notificationStore.removeNotification(notification)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

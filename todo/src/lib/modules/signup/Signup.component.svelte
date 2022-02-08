@@ -1,5 +1,10 @@
 <script lang="ts">
   import { createObjectAsFormData } from 'woo-format';
+  import {
+    constNotificationConfirmation,
+    constNotificationError
+  } from '../notification/notification.const';
+  import { notificationStore } from '../notification/notification.store';
 
   // envoie fomulaire de creation user
   const handlerCreateUser = async (e) => {
@@ -11,6 +16,12 @@
     const user = await res.json();
 
     // gestion erreur + throw error
+    if (!res.ok) {
+      notificationStore.addNewNotification(constNotificationError.CREATE_ACCOUNT);
+      throw new Error(constNotificationError.CREATE_ACCOUNT);
+    } else {
+      notificationStore.addNewNotification(constNotificationConfirmation.CREATE_ACCOUNT);
+    }
 
     e.target.reset();
   };
