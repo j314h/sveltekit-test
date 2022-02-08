@@ -67,6 +67,7 @@
         name="password"
         placeholder="Nouveau mot de passe"
         class="input input-bordered"
+        required
       />
     </div>
     <div class="mt-2 mb-8">
@@ -75,6 +76,7 @@
         name="confirme_password"
         placeholder="Confirmer le mot de passe"
         class="input input-bordered"
+        required
       />
     </div>
     <button class="btn btn-primary">Modifier</button>

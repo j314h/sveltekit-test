@@ -57,7 +57,10 @@
         />
         <!-- mot de passe oublié -->
         <div class="text-right">
-          <a href="#" class="label-text-alt text-2xs hover:text-accent">Mot de passe oublié ?</a>
+          <a
+            href="/init-password/init-password-send-mail"
+            class="label-text-alt text-2xs hover:text-accent">Mot de passe oublié ?</a
+          >
         </div>
       </div>
       <!-- btn envoie formulaire -->

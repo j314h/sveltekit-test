@@ -38,7 +38,7 @@
   export let acces_token;
 
   onMount(() => {
-    if (recover === 'type=recovery') {
+    if (recover === 'type=recovery' || recover === 'type=magiclink') {
       goto(`/init-password/${acces_token}`);
     }
   });
