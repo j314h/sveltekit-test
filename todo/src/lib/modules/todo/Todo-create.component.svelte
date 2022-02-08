@@ -3,7 +3,11 @@
   import { createObjectAsFormData } from 'woo-format';
   import type { ITodo } from './todo.type';
 
+  let styleLoading = '';
+
   const handlerCreateTodo = async (e) => {
+    styleLoading = 'loading';
+
     // fomat données
     const formData = createObjectAsFormData<ITodo>(e.target);
     formData.check = false;
@@ -18,6 +22,7 @@
     } else {
       e.target.reset();
     }
+    styleLoading = '';
   };
 </script>
 
@@ -32,6 +37,6 @@
       required
     />
     <!-- btn submit -->
-    <button class="btn btn-primary btn-sm rounded-full ml-4">Valider</button>
+    <button class={`btn btn-primary btn-sm rounded-full ml-4 ${styleLoading}`}>Valider</button>
   </form>
 </section>

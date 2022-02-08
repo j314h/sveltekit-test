@@ -76,7 +76,7 @@
         }}
       />
       <span class="label-text ml-2 md:ml-4 text-justify">{todo.text}</span>
-      <div class="flex">
+      <div class="flex ml-4">
         <!-- btn change text -->
         <BtnUpdate {updateChange} />
 
