@@ -5,6 +5,7 @@
   import { session } from '$app/stores';
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { todoStore } from '../todo/todo.store';
+  import HoverBtn from '../hover-btn/hover-btn.component.svelte';
 
   // dispatch pour changer la variable du parent pour fermer le volet profil
   const disp = createEventDispatcher();
@@ -126,33 +127,35 @@
   <!-- partie boutton -->
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
-    <button on:click={updateChange} class="text-secondary">
-      {#if profilUpdate}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 static"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      {:else}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 static"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-          />
-        </svg>
-      {/if}
-    </button>
+    <HoverBtn>
+      <button on:click={updateChange} class="text-secondary">
+        {#if profilUpdate}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 static"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        {:else}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 static"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+            />
+          </svg>
+        {/if}
+      </button>
+    </HoverBtn>
   </div>
 
   <!-- partie profile -->
