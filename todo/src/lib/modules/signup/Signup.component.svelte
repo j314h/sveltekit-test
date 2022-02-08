@@ -20,6 +20,7 @@
       notificationStore.addNewNotification(constNotificationError.CREATE_ACCOUNT);
       throw new Error(constNotificationError.CREATE_ACCOUNT);
     } else {
+      // notification de l'envoie du mail de confirmation
       notificationStore.addNewNotification(constNotificationConfirmation.CREATE_ACCOUNT);
     }
 
