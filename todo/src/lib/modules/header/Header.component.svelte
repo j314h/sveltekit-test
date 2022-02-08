@@ -1,17 +1,15 @@
 <script lang="ts">
   import { session } from '$app/stores';
-  import { supabase } from '$lib/providers/supabase/supabase.service';
   import Profil from '../profil/Profil.component.svelte';
 
   // profil venant de la fonction load
   export let resProfil;
   // variable pour modifier le theme en mode dark
-  export let themeMode = 'light';
-  // variable pour la balise html
-  let myHtmlBalise;
+  export let themeMode;
 
-  // switch pour mode dark
-  let btnDark = false;
+  // recative en fonction du themeMode
+  $: btnDark = themeMode === 'light' ? false : true;
+
   // pour afficher/cacher profil
   let seeProfil = false;
 
@@ -40,11 +38,13 @@
     if (themeMode === 'light') {
       themeMode = 'dark';
       btnDark = true;
-      myHtmlBalise = document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
+      document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
+      localStorage.setItem('mode_dark', themeMode);
     } else {
       themeMode = 'light';
       btnDark = false;
-      myHtmlBalise = document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
+      document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
+      localStorage.setItem('mode_dark', themeMode);
     }
   };
 </script>
@@ -75,43 +75,45 @@
 
   <!-- switch dark mode -->
   <div class="flex items-center">
-    <button class="text-white" on:click={switchTheme}>
-      {#if btnDark}
-        <div data-tip="mode claire" class="tooltip tooltip-bottom tooltip-secondary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            />
-          </svg>
-        </div>
-      {:else}
-        <div data-tip="mode foncé" class="tooltip tooltip-bottom tooltip-secondary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            />
-          </svg>
-        </div>
-      {/if}
-    </button>
+    {#if themeMode}
+      <button class="text-white" on:click={switchTheme}>
+        {#if btnDark}
+          <div data-tip="mode claire" class="tooltip tooltip-bottom tooltip-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </div>
+        {:else}
+          <div data-tip="mode foncé" class="tooltip tooltip-bottom tooltip-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+          </div>
+        {/if}
+      </button>
+    {/if}
 
     <!-- boutton déconnecté -->
     <div data-tip="se déconnecter" class="tooltip tooltip-bottom tooltip-secondary ml-4 md:ml-6">
