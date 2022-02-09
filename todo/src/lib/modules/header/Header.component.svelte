@@ -1,14 +1,13 @@
 <script lang="ts">
   import { session } from '$app/stores';
   import Profil from '../profil/Profil.component.svelte';
+  import { themeModeStore } from '../theme-mode/theme-mode.store';
 
   // profil venant de la fonction load
   export let resProfil;
-  // variable pour modifier le theme en mode dark
-  export let themeMode;
 
   // recative en fonction du themeMode
-  $: btnDark = themeMode === 'light' ? false : true;
+  $: btnDark = $themeModeStore === 'light' ? false : true;
 
   // pour afficher/cacher profil
   let seeProfil = false;
@@ -35,16 +34,16 @@
   // fonction pour switch de mode dark a mode light
   const switchTheme = () => {
     // condition qui verifier dans quel théme on se trouve
-    if (themeMode === 'light') {
-      themeMode = 'dark';
+    if ($themeModeStore === 'light') {
+      themeModeStore.set('dark');
       btnDark = true;
-      document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
-      localStorage.setItem('mode_dark', themeMode);
+      document.querySelector('#baliseHtml').setAttribute('data-theme', $themeModeStore);
+      localStorage.setItem('mode_dark', $themeModeStore);
     } else {
-      themeMode = 'light';
+      themeModeStore.set('light');
       btnDark = false;
-      document.querySelector('#baliseHtml').setAttribute('data-theme', themeMode);
-      localStorage.setItem('mode_dark', themeMode);
+      document.querySelector('#baliseHtml').setAttribute('data-theme', $themeModeStore);
+      localStorage.setItem('mode_dark', $themeModeStore);
     }
   };
 </script>
@@ -75,7 +74,7 @@
 
   <!-- switch dark mode -->
   <div class="flex items-center">
-    {#if themeMode}
+    {#if $themeModeStore}
       <button class="text-white" on:click={switchTheme}>
         {#if btnDark}
           <div data-tip="mode claire" class="tooltip tooltip-bottom tooltip-secondary">
