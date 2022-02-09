@@ -70,6 +70,7 @@
             name="password"
             required
           />
+          <!-- logo oeil -->
           <div
             class="absolute top-3 right-4 hover:text-secondary cursor-pointer"
             on:click={handlerSeePwd}

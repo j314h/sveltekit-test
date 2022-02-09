@@ -6,6 +6,7 @@
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { todoStore } from '../todo/todo.store';
   import HoverBtn from '../hover-btn/hover-btn.component.svelte';
+  import { goto } from '$app/navigation';
   import { notificationStore } from '../notification/notification.store';
   import {
     constNotificationConfirmation,
@@ -238,7 +239,10 @@
       <!-- lien vers réinitialisation mot de passe et email -->
       <div class="mt-6">
         <div>
-          <a class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</a>
+          <button
+            on:click={() => goto('/todo/init-email/init-email-send-mail')}
+            class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</button
+          >
         </div>
         <div>
           <button class="link link-hover text-xs text-cyan-500 mt-2" on:click={initPassword}
@@ -291,6 +295,7 @@
             type="text"
             placeholder="pseudo"
             value={$profileStore.pseudo}
+            required
           />
         </div>
 
