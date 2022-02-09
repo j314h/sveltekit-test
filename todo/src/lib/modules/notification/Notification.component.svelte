@@ -7,11 +7,11 @@
 <!-- si il esiste une notification dans le tableau -->
 {#if $notificationStore.length > 0}
   <section
-    class="rounded-lg border border-indigo-600 fixed top-10 right-8 w-7/12 sm:w-5/12 md:w-4/12 xl:w-3/12 z-50"
+    class="alert rounded-lg border-2 border-indigo-600 fixed top-10 right-8 w-7/12 sm:w-5/12 md:w-4/12 xl:w-3/12 z-50"
   >
     <!-- parcourir le tableau de notification -->
     {#each $notificationStore as notification}
-      <div class="alert">
+      <div class="contents">
         <div class="block">
           <div class="flex">
             <!-- icone cloche -->
@@ -44,10 +44,10 @@
           </div>
         </div>
 
-        <div class="place-self-start">
+        <div class="self-start">
           <!-- boutton supprimer notification -->
           <button
-            class="text-red-500 text-xs flex items-center hover:underline "
+            class="btn btn-circle btn-sm sm:btn-md text-primary bg-slate-100 border-none hover:bg-slate-300 "
             on:click={() => notificationStore.removeNotification(notification)}
           >
             <svg
