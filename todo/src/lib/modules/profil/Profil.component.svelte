@@ -283,6 +283,7 @@
             type="text"
             placeholder="pseudo"
             value={$profileStore.pseudo}
+            required
           />
         </div>
 

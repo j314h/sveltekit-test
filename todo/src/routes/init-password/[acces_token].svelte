@@ -20,6 +20,7 @@
   import { goto } from '$app/navigation';
   import { createObjectAsFormData } from 'woo-format';
 
+  // recuperation du token contenu dans l'url cela viens de la load fonction
   export let acces_token;
 
   // pour afficher l'oeil ou pas
@@ -92,7 +93,7 @@
     class="bg-slate-100 py-12 px-4 flex flex-col justify-center items-center"
     on:submit|preventDefault={handlerUpdatePassword}
   >
-    <!-- input 1 -->
+    <!-- input pwd 1 -->
     <div>
       <div class="relative">
         <input
@@ -151,6 +152,7 @@
       </div>
     </div>
     <div class="mt-2 mb-8">
+      <!-- input pwd 2 -->
       <input
         type="password"
         name="confirme_password"
