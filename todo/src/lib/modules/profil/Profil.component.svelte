@@ -6,6 +6,11 @@
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { todoStore } from '../todo/todo.store';
   import HoverBtn from '../hover-btn/hover-btn.component.svelte';
+  import { notificationStore } from '../notification/notification.store';
+  import {
+    constNotificationConfirmation,
+    constNotificationError
+  } from '../notification/notification.const';
 
   let styleLoading = '';
 
@@ -41,8 +46,10 @@
     const resUserJson = await resUser.json();
 
     if (!resUser.ok) {
+      notificationStore.addNewNotification(constNotificationError.UPDATE_ACCOUNT);
       throw new Error(resUserJson.error);
     } else {
+      notificationStore.addNewNotification(constNotificationConfirmation.UPDATE_ACCOUNT);
       // on affecte les modifications à la session
       $session.user = resUserJson.user;
     }
@@ -75,8 +82,8 @@
       const resJson = await res.json();
 
       if (!resJson.deleted) {
+        notificationStore.addNewNotification(constNotificationError.DELETE_ACCOUNT);
         throw new Error(resJson.error);
-        // TODO : gerer l'erreur avec notification ici
       }
 
       // delete le user dans la table auth
@@ -84,14 +91,15 @@
       const resJsonUser = await resUser.json();
 
       if (!resJsonUser.deleted) {
-        // TODO : implementer les notifications error
+        notificationStore.addNewNotification(constNotificationError.DELETE_ACCOUNT);
         throw new Error(resJsonUser.error);
       } else {
         // on supprime le user contenu dans la session
         $session.user = null;
+        notificationStore.addNewNotification(constNotificationConfirmation.DELETE_ACCOUNT);
       }
     } else {
-      // TODO : implementer les notifications error
+      notificationStore.addNewNotification(constNotificationError.DELETE_ACCOUNT_BEFORE_TODO);
       // throw error
       throw new Error('Veuillez terminer toutes vos tâches avant de supprimer votre compte');
     }
