@@ -51,7 +51,6 @@
   import { flip } from 'svelte/animate';
   import Header from '$lib/modules/header/Header.component.svelte';
   import { profileStore } from '$lib/modules/profil/profil.store';
-  import Notification from '$lib/modules/notification/Notification.component.svelte';
 
   export let resProfil;
   export let todos: ITodo[];
@@ -106,5 +105,3 @@
     {/if}
   </p>
 {/if}
-
-<Notification />
