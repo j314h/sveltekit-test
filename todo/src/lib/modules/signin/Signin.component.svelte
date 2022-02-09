@@ -2,6 +2,8 @@
   import { goto } from '$app/navigation';
   import { session } from '$app/stores';
   import { createObjectAsFormData } from 'woo-format';
+  import { constNotificationError } from '../notification/notification.const';
+  import { notificationStore } from '../notification/notification.store';
 
   let styleLoader = '';
   let typePwd = 'password';
@@ -24,6 +26,8 @@
       goto('/todo');
       // effacement du formulaire
       e.target.reset();
+    } else {
+      notificationStore.addNewNotification(constNotificationError.CONNECTION_USER);
     }
 
     // effacement du formulaire
