@@ -15,7 +15,7 @@
         <div class="block">
           <div class="flex">
             <!-- icone cloche -->
-            <div class="flex-1">
+            <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -31,10 +31,12 @@
                 />
               </svg>
             </div>
-            <!-- titre -->
-            <p class="font-bold mb-2 flex">
-              <span class="mr-3">{constNotification.title_notification}</span>
-            </p>
+            <div class="">
+              <!-- titre -->
+              <p class="font-bold mb-2 flex">
+                <span class="mr-3">{constNotification.title_notification}</span>
+              </p>
+            </div>
           </div>
           <div>
             <!-- text de la notification -->

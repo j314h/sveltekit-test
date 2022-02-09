@@ -46,8 +46,10 @@
     const resUserJson = await resUser.json();
 
     if (!resUser.ok) {
+      notificationStore.addNewNotification(constNotificationError.UPDATE_ACCOUNT);
       throw new Error(resUserJson.error);
     } else {
+      notificationStore.addNewNotification(constNotificationConfirmation.UPDATE_ACCOUNT);
       // on affecte les modifications à la session
       $session.user = resUserJson.user;
     }
