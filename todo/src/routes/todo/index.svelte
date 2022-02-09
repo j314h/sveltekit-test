@@ -13,6 +13,7 @@
     }
 
     let themeMode;
+    // si on est sur le navigateur on enregistre le mode du theme ou on recupere le mode du theme
     if (browser) {
       if (localStorage.getItem('mode_dark')) {
         const storageTheme = localStorage.getItem('mode_dark');
