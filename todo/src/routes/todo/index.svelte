@@ -19,6 +19,9 @@
         const storageTheme = localStorage.getItem('mode_dark');
         document.querySelector('#baliseHtml').setAttribute('data-theme', storageTheme);
         themeMode = storageTheme;
+      } else {
+        const storageTheme = localStorage.setItem('mode_dark', 'light');
+        themeMode = storageTheme;
       }
     }
 
@@ -63,6 +66,7 @@
   import { flip } from 'svelte/animate';
   import Header from '$lib/modules/header/Header.component.svelte';
   import { profileStore } from '$lib/modules/profil/profil.store';
+  import { supabase } from '$lib/providers/supabase/supabase.service';
 
   export let resProfil;
   export let todos: ITodo[];
