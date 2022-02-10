@@ -1,11 +1,12 @@
 <script lang="ts">
   import { profileStore } from './profil.store';
-  import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
+  import { createObjectAsFormData, firstToUppperCase } from '$lib/providers/format/format.service';
   import { createEventDispatcher, onMount } from 'svelte';
   import { session } from '$app/stores';
   import { supabase } from '$lib/providers/supabase/supabase.service';
   import { todoStore } from '../todo/todo.store';
   import HoverBtn from '../hover-btn/hover-btn.component.svelte';
+  import { goto } from '$app/navigation';
   import { notificationStore } from '../notification/notification.store';
   import {
     constNotificationConfirmation,
@@ -135,10 +136,11 @@
 </script>
 
 <section
-  class="absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+  id="profil"
+  class="dropdown-content absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
-  <!-- fermeture du volet profil -->
-  <div class="text-right">
+  <!-- fermeture du volet profil
+  <div tabindex="0" class="text-right">
     <button
       class="btn btn-circle btn-sm sm:btn-md text-primary bg-slate-100 border-none hover:bg-slate-300"
       on:click={closeProfil}
@@ -157,7 +159,7 @@
         />
       </svg>
     </button>
-  </div>
+  </div> -->
   <!-- partie boutton -->
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
@@ -238,7 +240,10 @@
       <!-- lien vers réinitialisation mot de passe et email -->
       <div class="mt-6">
         <div>
-          <a class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</a>
+          <button
+            on:click={() => goto('/todo/init-email/init-email-send-mail')}
+            class="link link-hover text-xs text-cyan-500">Modifier mon adresse mail</button
+          >
         </div>
         <div>
           <button class="link link-hover text-xs text-cyan-500 mt-2" on:click={initPassword}
@@ -291,6 +296,7 @@
             type="text"
             placeholder="pseudo"
             value={$profileStore.pseudo}
+            required
           />
         </div>
 

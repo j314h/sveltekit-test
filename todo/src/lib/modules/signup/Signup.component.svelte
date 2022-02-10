@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createObjectAsFormData } from 'woo-format';
+  import { createObjectAsFormData } from '$lib/providers/format/format.service';
   import {
     constNotificationConfirmation,
     constNotificationError

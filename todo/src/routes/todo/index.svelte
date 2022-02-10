@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-  import { browser } from '$app/env';
   import Todo from '$lib/modules/todo/Todo.component.svelte';
   import { todoStore } from '$lib/modules/todo/todo.store';
   import type { ITodo } from '$lib/modules/todo/todo.type';
@@ -10,15 +9,6 @@
         status: 302,
         redirect: '/'
       };
-    }
-
-    let themeMode;
-    if (browser) {
-      if (localStorage.getItem('mode_dark')) {
-        const storageTheme = localStorage.getItem('mode_dark');
-        document.querySelector('#baliseHtml').setAttribute('data-theme', storageTheme);
-        themeMode = storageTheme;
-      }
     }
 
     // appelle todo
@@ -47,7 +37,6 @@
 
     return {
       props: {
-        themeMode,
         todos: todos.todos,
         resProfil: profil.profil
       }
@@ -65,7 +54,6 @@
 
   export let resProfil;
   export let todos: ITodo[];
-  export let themeMode;
   todoStore.set(todos);
 
   beforeUpdate(() => {
@@ -87,7 +75,7 @@
 </svelte:head>
 
 <!-- header -->
-<Header {resProfil} {themeMode} />
+<Header {resProfil} />
 
 <!-- si profil et todo sont charger -->
 {#if $todoStore?.length > 0 && $profileStore?.id}

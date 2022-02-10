@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { session } from '$app/stores';
-  import { createObjectAsFormData } from 'woo-format';
+  import { createObjectAsFormData } from '$lib/providers/format/format.service';
   import { constNotificationError } from '../notification/notification.const';
   import { notificationStore } from '../notification/notification.store';
 
@@ -70,6 +70,7 @@
             name="password"
             required
           />
+          <!-- logo oeil -->
           <div
             class="absolute top-3 right-4 hover:text-secondary cursor-pointer"
             on:click={handlerSeePwd}
