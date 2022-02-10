@@ -1,6 +1,7 @@
 <script lang="ts">
   import { session } from '$app/stores';
   import Profil from '../profil/Profil.component.svelte';
+  import { seeProfilStore } from '../profil/profil.store';
   import { themeModeStore } from '../theme-mode/theme-mode.store';
 
   // profil venant de la fonction load
@@ -8,9 +9,6 @@
 
   // recative en fonction du themeMode
   $: btnDark = $themeModeStore === 'light' ? false : true;
-
-  // pour afficher/cacher profil
-  let seeProfil = false;
 
   // deconnection user
   const deconnect = async () => {
@@ -23,12 +21,18 @@
 
   // affiche cache le profil
   const forSeeProfil = () => {
-    seeProfil = !seeProfil;
+    console.log('coucouc');
+
+    if ($seeProfilStore) {
+      seeProfilStore.set(false);
+    } else {
+      seeProfilStore.set(true);
+    }
   };
 
   // close volet profil depuis le composant profil
   const closedProfil = (e) => {
-    seeProfil = e.detail.seeProfil;
+    seeProfilStore.set(e.detail.seeProfil);
   };
 
   // fonction pour switch de mode dark a mode light
@@ -48,29 +52,34 @@
   };
 </script>
 
-<header class="bg-primary py-4 px-8 md:px-12 z-40 fixed top-0 left-0 w-full flex justify-between">
-  <!-- boutton profile -->
-  <div data-tip="Mon profil" class="tooltip tooltip-bottom tooltip-secondary">
-    <button class="text-white" on:click={forSeeProfil}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </button>
-  </div>
+<header
+  id="header"
+  class="bg-primary py-4 px-8 md:px-12 z-40 fixed top-0 left-0 w-full flex justify-between"
+>
+  <div class="dropdown">
+    <!-- boutton profile -->
+    <div data-tip="Mon profil" class="tooltip tooltip-bottom tooltip-secondary">
+      <button tabindex="0" class="text-white" on:click={forSeeProfil}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
 
-  <!-- profil -->
-  {#if seeProfil}
-    <Profil {resProfil} on:closeShutterProfil={closedProfil} />
-  {/if}
+    <!-- profil -->
+    <div tabindex="0" class="dropdown-content">
+      <Profil {resProfil} on:closeShutterProfil={closedProfil} />
+    </div>
+  </div>
 
   <!-- switch dark mode -->
   <div class="flex items-center">
