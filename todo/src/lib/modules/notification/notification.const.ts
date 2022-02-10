@@ -15,5 +15,7 @@ export const constNotificationError = {
   DELETE_ACCOUNT: "il s'est produit une erreur lors de votre suppretion de votre compte",
   DELETE_ACCOUNT_BEFORE_TODO: 'Veuillez terminer toutes vos tâches avant de supprimer votre compte',
   UPDATE_ACCOUNT: "il s'est produit une erreur lors de la modification de votre compte",
-  CONNECTION_USER: "il s'est produit une erreur lors de votre connection"
+  CONNECTION_USER: "il s'est produit une erreur lors de votre connection",
+  CREATE_USER_CONDITION:
+    "Veuillez cocher la case des conditions général à la fin du formulaire d'inscription utilisateur"
 };
