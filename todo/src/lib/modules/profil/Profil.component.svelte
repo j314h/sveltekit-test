@@ -1,6 +1,6 @@
 <script lang="ts">
   import { profileStore } from './profil.store';
-  import { createObjectAsFormData, firstToUppperCase } from 'woo-format';
+  import { createObjectAsFormData, firstToUppperCase } from '$lib/providers/format/format.service';
   import { createEventDispatcher, onMount } from 'svelte';
   import { session } from '$app/stores';
   import { supabase } from '$lib/providers/supabase/supabase.service';
