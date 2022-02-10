@@ -1,8 +1,12 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { session } from '$app/stores';
+  import {
+    constNotificationConfirmation,
+    constNotificationError
+  } from '$lib/modules/notification/notification.const';
+  import { notificationStore } from '$lib/modules/notification/notification.store';
   import { profileStore } from '$lib/modules/profil/profil.store';
-  import { supabase } from '$lib/providers/supabase/supabase.service';
   import { createObjectAsFormData } from 'woo-format';
 
   let loader = '';
@@ -38,13 +42,12 @@
     const resDeconnect = await fetch(`${import.meta.env.VITE_URL}api/logout.json`);
 
     if (!res.ok && !resDeconnect.ok && !resProfil.ok) {
-      // gestion erreur
+      notificationStore.addNewNotification(constNotificationError.UPDATE_ACCOUNT);
       throw new Error(resJson.error);
     } else {
-      //ajouter notification pour afficher l'envoie du mail
+      notificationStore.addNewNotification(constNotificationConfirmation.UPDATE_EMAIL);
       $session.user = null;
       loader = '';
-
       goto('/');
     }
   };

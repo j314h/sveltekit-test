@@ -136,10 +136,11 @@
 </script>
 
 <section
-  class="absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
+  id="profil"
+  class="dropdown-content absolute z-50 w-72 sm:w-96 card bg-base-100 shadow-lg border-2 border-primary pl-4 pr-4 pb-8 sm:pl-12 sm:pr-12 sm:pb-12 pt-5 rounded-xl"
 >
-  <!-- fermeture du volet profil -->
-  <div class="text-right">
+  <!-- fermeture du volet profil
+  <div tabindex="0" class="text-right">
     <button
       class="btn btn-circle btn-sm sm:btn-md text-primary bg-slate-100 border-none hover:bg-slate-300"
       on:click={closeProfil}
@@ -158,7 +159,7 @@
         />
       </svg>
     </button>
-  </div>
+  </div> -->
   <!-- partie boutton -->
   <div class="flex items-center mb-6">
     <h2 class="card-title m-0 text-primary mr-4">Vos infos</h2>
