@@ -1,6 +1,6 @@
 <script type="ts">
   import { constNotification } from './notification.const';
-  import { firstToUppperCase } from 'woo-format';
+  import { firstToUppperCase } from '$lib/providers/format/format.service';
   import { notificationStore } from './notification.store';
 </script>
 

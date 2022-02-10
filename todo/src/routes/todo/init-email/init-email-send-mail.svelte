@@ -7,7 +7,7 @@
   } from '$lib/modules/notification/notification.const';
   import { notificationStore } from '$lib/modules/notification/notification.store';
   import { profileStore } from '$lib/modules/profil/profil.store';
-  import { createObjectAsFormData } from 'woo-format';
+  import { createObjectAsFormData } from '$lib/providers/format/format.service';
 
   let loader = '';
 

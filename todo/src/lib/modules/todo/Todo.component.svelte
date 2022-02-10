@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createObjectAsFormData } from 'woo-format';
+  import { createObjectAsFormData } from '$lib/providers/format/format.service';
   import BtnCloseUpdate from '../btn/btn-close-update/BtnCloseUpdate.component.svelte';
   import BtnUpdate from '../btn/btnUpdate/BtnUpdate.component.svelte';
   import HoverBtn from '../hover-btn/hover-btn.component.svelte';

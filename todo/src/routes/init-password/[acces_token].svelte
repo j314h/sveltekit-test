@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { createObjectAsFormData } from 'woo-format';
+  import { createObjectAsFormData } from '$lib/providers/format/format.service';
 
   // recuperation du token contenu dans l'url cela viens de la load fonction
   export let acces_token;
