@@ -21,7 +21,7 @@
     <!-- copyright -->
     <p class="ml-4 text-xs md:text-base">
       Copyright © {new Date().getFullYear()} - woopear -
-      <a href="/condition-gen">Conditions-général</a>
+      <a href="/condition-gen">Conditions-générales</a>
     </p>
   </div>
   <!-- cadre droit (lien) -->

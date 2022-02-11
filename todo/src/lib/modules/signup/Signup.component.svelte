@@ -10,6 +10,8 @@
 
   let load = '';
 
+  let error_valide_condition = '';
+
   // envoie fomulaire de creation user
   const handlerCreateUser = async (e) => {
     load = 'loading';
@@ -34,6 +36,8 @@
     } else {
       // si la case à cocher des condition n'est pas coché
       notificationStore.addNewNotification(constNotificationError.CREATE_USER_CONDITION);
+      // on met en rouge dans le formulaire la validation des conditions général
+      error_valide_condition = 'text-red-500';
     }
     load = '';
   };
@@ -124,10 +128,10 @@
           />
         </div>
 
-        <!-- code postale -->
+        <!-- code postal -->
         <div class="form-control mt-2">
           <label for="label">
-            <span class="label-text">Code postale</span>
+            <span class="label-text">Code postal</span>
           </label>
           <input type="text" placeholder="62119" class="input input-bordered" name="code_post" />
         </div>
@@ -149,7 +153,7 @@
             données
           </p>
           <label class="cursor-pointer label">
-            <span class="label-text text-xs mr-4"
+            <span class={`label-text text-xs mr-4 ${error_valide_condition}`}
               >Vous acceptez nos <a
                 href="/condition-gen"
                 class="text-accent hover:underline hover:text-accent">Conditions générales</a
@@ -166,6 +170,6 @@
       </section>
     </form>
 
-    <p class="text-2xs mt-12">* Informations obligatoire</p>
+    <p class="text-2xs mt-12">* Informations obligatoires</p>
   </div>
 </section>

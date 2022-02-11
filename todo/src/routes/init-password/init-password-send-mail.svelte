@@ -50,7 +50,7 @@
 
   <!-- info formulaire -->
   <p class="text-2xs mt-6 md:w-7/12">
-    * Un mail sera envoyer à votre adresse, veuillez suivre les instructions contenu dans cette
+    * Un mail sera envoyé à votre adresse, veuillez suivre les instructions contenues dans cette
     e-mail
   </p>
 </section>

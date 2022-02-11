@@ -3,7 +3,7 @@
 
 <section class="card card-bordered bg-base-100 shadow-lg w-11/12 mb-16">
   <section class="card-body">
-    <h1 class="card-title text-center text-3xl font-bold mb-24">Conditions général</h1>
+    <h1 class="card-title text-center text-3xl font-bold mb-24">Conditions générales</h1>
     <!-- article 1 -->
     <article class="mb-12">
       <h2 class="font-bold text-primary mb-6">Informations légales :</h2>
