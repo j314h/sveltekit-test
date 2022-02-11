@@ -3,7 +3,7 @@ export const constNotification = {
 };
 
 export const constNotificationConfirmation = {
-  CREATE_ACCOUNT: 'Un mail vous a été envoié pour confirmer la création du compte',
+  CREATE_ACCOUNT: 'Un mail vous a été envoyé pour confirmer la création du compte',
   DELETE_ACCOUNT: 'Votre compte a bien été supprimé',
   UPDATE_ACCOUNT: 'Votre compte a bien été modifié',
   UPDATE_EMAIL:

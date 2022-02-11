@@ -9,5 +9,6 @@ export interface IProfil {
   first_name?: string,
   code_post?: string,
   uid_user?: string,
-  email?:string
+  email?:string,
+  id_avatar?:string,
 }

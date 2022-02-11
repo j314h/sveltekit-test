@@ -12,6 +12,7 @@
     constNotificationConfirmation,
     constNotificationError
   } from '../notification/notification.const';
+  import Avatar from '../avatar/Avatar.component.svelte';
 
   let styleLoading = '';
 
@@ -345,6 +346,7 @@
       </form>
     </section>
   {/if}
+  <Avatar {resProfil} />
 </section>
 
 <style>
