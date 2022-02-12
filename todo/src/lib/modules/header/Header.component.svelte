@@ -58,7 +58,7 @@
 >
   <div class="dropdown">
     <!-- boutton profile -->
-    {#if resProfil.avatar === null}
+    {#if !resProfil.avatar}
       <div data-tip="Mon profil" class="tooltip tooltip-bottom tooltip-secondary">
         <button tabindex="0" class="text-white" on:click={forSeeProfil}>
           <svg
@@ -78,7 +78,11 @@
     {:else}
       <div data-tip="Mon profil" class="tooltip tooltip-bottom tooltip-secondary">
         <button tabindex="0" class="text-white" on:click={forSeeProfil}>
-          <img src={resProfil.avatar} alt="avatar" class="h-9 w-9" />
+          <img
+            src={`${import.meta.env.VITE_URL_SUPABASE_AVATAR}${resProfil.avatar}`}
+            alt="avatar"
+            class="h-9 w-9"
+          />
         </button>
       </div>
     {/if}

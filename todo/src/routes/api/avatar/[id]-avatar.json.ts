@@ -4,13 +4,11 @@ export const patch = async ({ params, request }) => {
   // récupérer le body
   const body = await request.json();
 
-  console.log('params=>',body);
-  
   // modifier le profile de l'avatar
-  const { data, error } = await supabase
-  .from('profils')
-  .update({ avatar: body.avatar, id_avatar: body.id_avatar })
-  .eq('id', params.id)
+  const { error } = await supabase
+    .from('profils')
+    .update({ avatar: body.avatar })
+    .eq('id', params.id);
 
   // si erreur
   if (error) {
