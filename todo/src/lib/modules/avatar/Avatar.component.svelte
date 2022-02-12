@@ -23,36 +23,44 @@
    */
   const uploadAvatar = async (e, id) => {
     // création de l'url de l'image
-    const url_avatar = form.lastModified + form.name;
+    const type_file = form.type.split('/')[1];
+    const img = `${$session.user.id}.${type_file}`;
 
-    // si il y a deja un avatar
-    if (resProfil.avatar !== null) {
-      const old_avatar = resProfil.id_avatar;
-      console.log(old_avatar);
-      const { data, error } = await supabase.storage
-        .from('avatars')
-        .remove(['public/' + old_avatar]);
-    }
+    // variable pour stokage reponse upload
+    let res_bucket_avatar;
+    let bucket_avatar;
 
     // upload image
-    const { data, error } = await supabase.storage
-      .from('avatars')
-      .upload(`public/${url_avatar}`, form, {
-        cacheControl: '3600',
-        upsert: false
-      });
+    res_bucket_avatar = await supabase.storage.from('avatars').upload(`public/${img}`, form, {
+      cacheControl: '0',
+      upsert: true
+    });
 
-    // récupérer l'url de l'avatar
-    const body = {
-      avatar: import.meta.env.VITE_URL_SUPABASE_AVATAR + data.Key,
-      id_avatar: url_avatar
-    };
+    // si il y a une erreur au moment du upload ou update
+    if (res_bucket_avatar.error) {
+      // TODO : gerer l'erreur
+      throw new Error(res_bucket_avatar.error.message);
+    }
+
+    // on recupere l'url apres creation ou modification
+    bucket_avatar = res_bucket_avatar.data.Key;
 
     // ajout de l'avatar dans profil
-    const res_avatar_profil = await fetch(`api/avatar/${resProfil.id}-avatar.json`, {
+    const res_avatar_profil = await fetch(`api/avatar/${$profileStore.id}-avatar.json`, {
       method: 'PATCH',
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        avatar: bucket_avatar
+      })
     });
+    const avatar_profil = await res_avatar_profil.json();
+
+    // si error
+    if (!res_avatar_profil.ok) {
+      // TODO : gestion error
+      throw new Error(avatar_profil.error);
+    }
+
+    // TODO : gerer le succes du upload
   };
 </script>
 
