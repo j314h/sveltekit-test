@@ -4,9 +4,6 @@
   import { onMount } from 'svelte';
   import { profileStore } from '../profil/profil.store';
 
-  onMount(() => {
-    profileStore.listen($session.user.id);
-  });
   // pour stocker le fichier
   let form;
   export let resProfil;
@@ -44,6 +41,13 @@
 
     // on recupere l'url apres creation ou modification
     bucket_avatar = res_bucket_avatar.data.Key;
+
+    // on verifie si un avatar existe deja si oui on efface
+    if (resProfil.avatar !== null) {
+      const { data, error } = await supabase.storage
+        .from('avatars')
+        .remove([`public/${resProfil.avatar}`]);
+    }
 
     // ajout de l'avatar dans profil
     const res_avatar_profil = await fetch(`api/avatar/${$profileStore.id}-avatar.json`, {
