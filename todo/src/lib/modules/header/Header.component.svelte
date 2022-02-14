@@ -10,9 +10,6 @@
 
   // recative en fonction du themeMode
   $: btnDark = $themeModeStore === 'light' ? false : true;
-  afterUpdate(() => {
-    profileStore.listen($session.user.id);
-  });
 
   // deconnection user
   const deconnect = async () => {

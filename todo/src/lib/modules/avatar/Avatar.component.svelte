@@ -14,7 +14,7 @@
   // pour stocker le fichier
   let form;
   // booleen pour les boutton modifier/valider/annuler
-  let updateChangeAvatar: boolean = false;
+  let updateChangeAvatar = false;
   // pour récupéré la valeur de l'input avatar
   let scr;
 
@@ -107,7 +107,7 @@
   }
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-8">
   <div>
     {#if !updateChangeAvatar}
       <!-- image avatar -->
@@ -133,7 +133,7 @@
       <!-- boutton modifier -->
       {#if !updateChangeAvatar}
         <HoverBtn>
-          <button
+          <div
             on:click={thisFileUpload}
             class="h-33 w-3 rounded-full text-red-500 flex-row-reverse"
           >
@@ -147,7 +147,7 @@
                 d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
               />
             </svg>
-          </button>
+          </div>
         </HoverBtn>
       {:else}
         <div class="flex">
@@ -179,7 +179,7 @@
           </form>
           <!-- boutton annuler la modification -->
           <HoverBtn>
-            <button on:click={changeButonAvatar} class="text-red-500">
+            <div on:click={changeButonAvatar} class="text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-3 w-3"
@@ -192,7 +192,7 @@
                   clip-rule="evenodd"
                 />
               </svg>
-            </button>
+            </div>
           </HoverBtn>
         </div>
       {/if}
