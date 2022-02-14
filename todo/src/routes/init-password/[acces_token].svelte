@@ -18,6 +18,8 @@
 
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { constNotificationError } from '$lib/modules/notification/notification.const';
+  import { notificationStore } from '$lib/modules/notification/notification.store';
   import { createObjectAsFormData } from '$lib/providers/format/format.service';
 
   // recuperation du token contenu dans l'url cela viens de la load fonction
@@ -49,15 +51,14 @@
       });
 
       if (res.ok) {
-        const data = await res.json();
         goto('/');
       } else {
-        // gestion de l'erreur
         const data = await res.json();
+        notificationStore.addNewNotification(data.error);
         throw new Error(data.error);
       }
     } else {
-      //gestion error mot de passe ne corresponds pas
+      notificationStore.addNewNotification(constNotificationError.INIT_PASSWORD);
       throw new Error('Les mots de passe ne sont pas identique');
     }
   };
