@@ -1,7 +1,11 @@
 <script type="ts">
   import { session } from '$app/stores';
   import { supabase } from '$lib/providers/supabase/supabase.service';
-  import { onMount } from 'svelte';
+  import {
+    constNotificationConfirmation,
+    constNotificationError
+  } from '../notification/notification.const';
+  import { notificationStore } from '../notification/notification.store';
   import { profileStore } from '../profil/profil.store';
 
   // pour stocker le fichier
@@ -35,7 +39,7 @@
 
     // si il y a une erreur au moment du upload ou update
     if (res_bucket_avatar.error) {
-      // TODO : gerer l'erreur
+      notificationStore.addNewNotification(constNotificationError.UPLOAD_AVATAR);
       throw new Error(res_bucket_avatar.error.message);
     }
 
@@ -47,6 +51,11 @@
       const { data, error } = await supabase.storage
         .from('avatars')
         .remove([`public/${resProfil.avatar}`]);
+
+      // si erreur a l'effacement de l'avatar
+      if (error) {
+        throw new Error(error.message);
+      }
     }
 
     // ajout de l'avatar dans profil
@@ -60,11 +69,11 @@
 
     // si error
     if (!res_avatar_profil.ok) {
-      // TODO : gestion error
+      notificationStore.addNewNotification(constNotificationError.UPDATE_AVATAR);
       throw new Error(avatar_profil.error);
     }
 
-    // TODO : gerer le succes du upload
+    notificationStore.addNewNotification(constNotificationConfirmation.UPDATE_AVATAR);
   };
 </script>
 
