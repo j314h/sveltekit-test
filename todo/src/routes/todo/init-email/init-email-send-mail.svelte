@@ -81,7 +81,7 @@
 
   <!-- info formulaire -->
   <p class="text-2xs mt-6 md:w-7/12">
-    * Un mail sera envoyer à votre nouvelle adresse, veuillez suivre les instructions contenu dans
+    * Un mail sera envoyé à votre nouvelle adresse, veuillez suivre les instructions contenues dans
     cette email
   </p>
 </section>

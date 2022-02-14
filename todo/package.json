@@ -1,6 +1,6 @@
 {
   "name": "todo",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "scripts": {
     "dev": "env-cmd svelte-kit dev",
     "start": "node build/index.js",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-node": "^1.0.0-next.67",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "v1.0.0-next.251",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "autoprefixer": "^10.4.2",
@@ -33,10 +33,6 @@
     "tailwindcss": "^3.0.12",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
-  },
-  "engines": {
-    "node": "16.x",
-    "npm": "8.x"
   },
   "type": "module",
   "dependencies": {
