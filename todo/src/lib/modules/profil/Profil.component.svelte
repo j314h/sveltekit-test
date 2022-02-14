@@ -197,6 +197,8 @@
 
   <!-- partie profile -->
   {#if !profilUpdate && $profileStore?.id}
+    <Avatar {resProfil} />
+
     <section class="profil_info">
       <p><span>Pseudo :</span> {$profileStore.pseudo}</p>
       <p><span>Email :</span> {$profileStore.email}</p>
@@ -346,7 +348,6 @@
       </form>
     </section>
   {/if}
-  <Avatar {resProfil} />
 </section>
 
 <style>

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { session } from '$app/stores';
+  import { afterUpdate, onMount } from 'svelte';
   import Profil from '../profil/Profil.component.svelte';
-  import { seeProfilStore } from '../profil/profil.store';
+  import { profileStore, seeProfilStore } from '../profil/profil.store';
   import { themeModeStore } from '../theme-mode/theme-mode.store';
 
   // profil venant de la fonction load
@@ -9,6 +10,9 @@
 
   // recative en fonction du themeMode
   $: btnDark = $themeModeStore === 'light' ? false : true;
+  afterUpdate(() => {
+    profileStore.listen($session.user.id);
+  });
 
   // deconnection user
   const deconnect = async () => {
@@ -63,7 +67,7 @@
         <button tabindex="0" class="text-white" on:click={forSeeProfil}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            class="h-6 w-6 rounded-full"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -75,13 +79,13 @@
           </svg>
         </button>
       </div>
-    {:else}
+    {:else if $profileStore?.avatar}
       <div data-tip="Mon profil" class="tooltip tooltip-bottom tooltip-secondary">
         <button tabindex="0" class="text-white" on:click={forSeeProfil}>
           <img
-            src={`${import.meta.env.VITE_URL_SUPABASE_AVATAR}${resProfil.avatar}`}
+            src={`${import.meta.env.VITE_URL_SUPABASE_AVATAR}${$profileStore.avatar}`}
             alt="avatar"
-            class="h-9 w-9"
+            class="h-10 w-10 rounded-full "
           />
         </button>
       </div>
