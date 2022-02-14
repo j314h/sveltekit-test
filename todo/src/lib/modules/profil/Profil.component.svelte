@@ -12,6 +12,7 @@
     constNotificationConfirmation,
     constNotificationError
   } from '../notification/notification.const';
+  import Avatar from '../avatar/Avatar.component.svelte';
 
   let styleLoading = '';
 
@@ -196,6 +197,8 @@
 
   <!-- partie profile -->
   {#if !profilUpdate && $profileStore?.id}
+    <Avatar {resProfil} />
+
     <section class="profil_info">
       <p><span>Pseudo :</span> {$profileStore.pseudo}</p>
       <p><span>Email :</span> {$profileStore.email}</p>
