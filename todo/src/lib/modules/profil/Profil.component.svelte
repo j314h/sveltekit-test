@@ -199,7 +199,7 @@
   {#if !profilUpdate && $profileStore?.id}
     <Avatar {resProfil} />
 
-    <section class="profil_info">
+    <section class="profil_info mt-10">
       <p><span>Pseudo :</span> {$profileStore.pseudo}</p>
       <p><span>Email :</span> {$profileStore.email}</p>
       <p>
